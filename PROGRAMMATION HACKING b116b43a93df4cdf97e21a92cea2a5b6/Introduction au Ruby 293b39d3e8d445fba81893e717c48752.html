@@ -1,0 +1,836 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Introduction au Ruby</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="293b39d3-e8d4-45fb-a818-93e717c48752" class="page sans"><header><img class="page-cover-image" src="https://images.unsplash.com/photo-1551122087-f99a4ade46ce?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb&amp;ixid=eyJhcHBfaWQiOjYzOTIxfQ" style="object-position:center 10.060000000000002%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">⛩️</span></div><h1 class="page-title">Introduction au Ruby</h1></header><div class="page-body"><p id="3a4c83b5-2399-4354-abed-c43fd913c0c6" class=""><em><a href="https://www.cours-gratuit.com/cours-ruby/">https://www.cours-gratuit.com/cours-ruby/</a></em><em>
+</em><em><a href="https://launchschool.com/books/ruby/read/preparations">https://launchschool.com/books/ruby/read/preparations</a></em></p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="17dcd23f-0071-49b4-97cb-987ae9405354"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Très similaire au Python auquel il est souvent comparé, Ruby est un langage dit de haut niveau, écrit en langage C/C++, multiplateforme et fortement orienté objet, dont la première version est apparue en 1995. </div></figure><h2 id="333d4d6a-2897-41a0-b1fa-dc3fc3b37501" class="">Les bases du ruby</h2><h3 id="2b118a84-4c87-4470-be61-38f65e48412d" class="">Installation des outils nécessaires</h3><ul id="05afbbc4-5f4f-4e70-b653-2ed5c3e44830" class="bulleted-list"><li>Installer la console Ruby</li></ul><p id="51b4a43b-105a-4b6d-9efb-738152b15a52" class="">Pour installer Ruby sur votre ordinateur, il faut se rendre sur <a href="https://rubyinstaller.org/">https://rubyinstaller.org/</a>. Vous executez le .exe et suivez les instructions de l&#x27;installateur.</p><p id="99c86dc7-24c5-4112-97df-204882d9a410" class="">
+</p><ul id="570b7e59-ce00-4966-901b-7e1bc80c1d29" class="bulleted-list"><li>Installer un editeur de texte</li></ul><p id="d8b6c90d-87b6-4ad0-9061-a9935d2d4177" class="">Pour écrire un code Ruby il va falloir un éditeur de texte. N&#x27;importe lequel conviens mais certains possède une syntaxe colorimétrique spécialement conçue pour le code Ruby. Je conseil Sublime Text qui est gratuit et disponible à cette adresse: <a href="https://www.sublimetext.com/">https://www.sublimetext.com/</a></p><p id="8e975e1a-45f4-46ab-bd49-60c2cb8d8d30" class="">
+</p><h3 id="6904822f-e580-492c-a39f-b94a3b47e69e" class="">Variables et objet simple</h3><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="13554306-09df-4e59-932e-88143a7a3441"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Pour démarrer la console ruby sur windows, il faut rentré &quot;irb --simple-prompt&quot;</div></figure><p id="148d5014-7460-4c1a-af3e-e6262f18dc51" class="">
+</p><p id="77406682-bbeb-4e71-9af4-f57d5f3b4939" class="">Les variables sont des outils puissants utilisés dans beaucoup de langage. Un variable permet de stocké des informations comme du texte, des valeurs, des nombre.</p><p id="b730368b-a93e-4e3f-a18f-36cb0af2b6f3" class="">Exemple: On peut dire à Ruby que la variable A=5. Si l&#x27;on dit que la variable B=A+5, alors la valeurs de A sera prise en compte et B sera égal à 10.</p><p id="66459e9d-c2a3-4a5a-ad41-b78f370c38b3" class="">Pour appelé/ crée une variable, on la nomme et la suis du symnole = suivie de la valeur/ objet voulue. Exemple:Ici la variable &quot;Variable&quot; contient la valeur numérique 45</p><pre id="89b1ed9e-5fa6-407c-8e06-e0bae42c6b28" class="code"><code>variable=45</code></pre><p id="e099874a-4b59-4046-a2a7-72d49fadf34f" class="">
+</p><p id="0d7956c0-0335-441b-aa6f-7ad7d6ca3c33" class="">Ici la variable &quot;Variable2&quot; contient le texte &quot;Bonjour&quot;</p><pre id="2413d643-2fa6-4162-b0ab-b444ff20814f" class="code"><code>variable2= &quot;Bonjour&quot;</code></pre><p id="80ef65b0-a16c-4538-8388-15e8ac25b9f2" class="">
+</p><p id="7138a530-d772-4580-9295-615816ddc4ce" class="">On peut intégrer un variable dans une variable:</p><pre id="ca122c59-dc2a-4a0e-acd9-7038133a202d" class="code"><code>prix_robe=70
+prix_chapeau=15
+prix_total= prix_robe + prix_chapeau</code></pre><h3 id="3fcfe217-0ca2-4e39-98d6-0b9946dd3c7c" class="">Organisation par tableaux/hashes</h3><p id="b3c959ae-713a-44fb-aea7-6d037f3e676e" class="">Les tableaux et les hashes ont des façons de grouper et d&#x27;organiser plus facilement certaines données.</p><ul id="3a67a03e-c723-42d0-bd1e-069b958fa93e" class="bulleted-list"><li>Les tableaux</li></ul><p id="0415882e-2927-4d42-8d30-2c8a3b6cade2" class="">L&#x27;utilisation des tableaux est simple. On stock le tableau dans une variable. Le tableau est symbolisé par des crochet et se qui se trouve entre sont les donnée de ce tableau. On sépare les données par des virgules. Exemple:</p><pre id="3ecba87c-9807-4c2d-9166-1e415fc399e6" class="code"><code>mon_tableau = [1,6,8,4]</code></pre><p id="c79da86d-186f-4ce4-a56a-1ddc69261e2b" class="">Ici la variable contient un tableau qui contient les données 1, 6, 8, et 4. Pour afficher le contenu de ce tableau il suffit d&#x27;appelé la variable:</p><pre id="551818fa-c746-47d2-be9c-b2b285a14287" class="code"><code>mon_tableau</code></pre><p id="87383d5e-687d-43d1-8817-1adb5c480718" class="">et la console nous renvoie:</p><pre id="574dd928-2bce-4123-967a-177d01bc55d8" class="code"><code>=&gt; [1, 6, 8, 4]</code></pre><p id="ae4e2123-0861-47aa-ac24-8fd53bad8a75" class="">
+</p><p id="d6165faf-9590-40d1-b320-bedff7fdbf81" class="">Ce tableau nous permet d&#x27;utiliser des méthode pour le modifier comme:</p><pre id="4539a94a-9db1-4f0b-862a-43a3862a4184" class="code"><code>mon_tableau.size</code></pre><p id="c105bcd0-cf73-426e-928f-b59f95de5b95" class="">qui va m&#x27;informer de la taille du tableau ou encore</p><pre id="886e921f-927b-43fc-8e48-f5905bc2460b" class="code"><code>mon_tableau.reverse</code></pre><p id="1bdcf401-8963-4672-b00a-fe53af631e6b" class="">qui va inverser les valeurs du tableau</p><p id="d4b8ebb4-417b-4aae-a5b8-706d39bb8b58" class="">
+</p><p id="491869e2-bbef-43bc-bb61-e29b567d2331" class="">On peut afficher une des valeurs du tableau en invoquant la variable de ce dernier suivie de la positions de la valeurs entre croche .En ruby, on compte à partir de 0. Donc pour par exemple choisir la valeur 4 de notre tableau, on doit appelé la 3ème valeur:</p><pre id="baf9e8ec-50ed-4915-b75b-fab25ae475df" class="code"><code>mon_tableau[3]</code></pre><p id="d8156c6d-5e99-4a89-a4c6-e2c83c22fda9" class="">
+</p><p id="13946804-4e4c-4f14-aae2-5346b68f8ea5" class="">Pour ajouter une nouvelle donnée au tableau il faut taper:</p><pre id="cfd62d8d-1520-4019-80d6-c6ff86d750fa" class="code"><code>mon_tableau &lt;&lt; &quot;nouvelle donnée à rentrer&quot;</code></pre><p id="71f84244-8e71-4bc5-91b2-0aff918765c0" class="">Et pour remplacer une donnée il faut taper:</p><pre id="b3d23e57-8747-4430-ab40-1c8b972faa23" class="code"><code>mon_tableau[numéro de la donnée à modifier] = &quot;nouvelle valeur&quot;</code></pre><p id="49c84e56-3625-4144-97db-3264b527bb75" class="">
+</p><ul id="d0af1232-9f92-4744-b16d-483ea1bc57c5" class="bulleted-list"><li>Les tables de hashage</li></ul><p id="98a840d6-5914-4ca4-bf4c-15a145bc3338" class="">
+</p><p id="c01dc1eb-d8eb-41d8-a998-715328303803" class="">Les tables de hashage permettent un regroupement plus facile que les tableaux. Voici comment les utiliser:</p><pre id="eca971de-8b33-47fa-9612-31d8f5f9ed20" class="code"><code>mon_hash = { jean: 10, patrick: 35}</code></pre><p id="6d5040a5-b20c-4c97-8c14-f7fabde0ef7d" class="">Ici  &quot;mon_hash&quot; est le nom de la variable contenant le hash. Le hash est contenue entre deux accolades et les donnée différente sont séparé par une virgule. On stock pour chaque prénom leurs age. Contrairement au tableau ou, pour afficher une valeur, il faut appelé sont numéro, avec les hash on peut directement afficher avec le nom.</p><pre id="12d3ac9f-d968-4f88-b397-4817e3907018" class="code"><code>mon_hash[:jean] </code></pre><p id="32a1ea3b-eeee-42d9-9ca6-5f7193d5d341" class="">Cette commande vas nous donner toutes les information stocké sous le nom de jean.</p><p id="875a37e7-e7a6-48e6-8d45-913979c862bc" class="">
+</p><p id="e169b958-96da-4a7d-a782-35fdffa8d965" class="">On peut aussi rajouter une valeur dans la table avec:</p><pre id="7c7d323c-05d5-4201-acb4-01ff0e614415" class="code"><code>mon_hash[:marc] = 30</code></pre><p id="f5ae2606-40cf-408a-86bb-7eab1c9de27d" class="">
+</p><h3 id="b5a8c385-2598-418d-a2ff-c9bd9bd98425" class="">Boucles et itérateur</h3><p id="9f73798e-7e65-4b7c-81c7-8816689f4f0a" class="">Ici, à l&#x27;inverse des partie précédente, nous allons écrire notre code dans un fichier puis l&#x27;executer.</p><p id="4aeb08c5-a045-473b-9385-02eccc463ebe" class="">Créez donc un fichier boucles.rb, ouvrez le avec votre éditeur de texte et dans votre console, rendez vous dans le chemin de votre fichier avec:</p><pre id="212fb113-efc3-430b-911f-f2a67920917e" class="code"><code>cd &quot;chemin de votre fichier&quot;</code></pre><p id="7b03b44c-1d49-43ad-b71f-2e84fdd238b5" class="">
+</p><p id="6769dd55-3ad7-4604-bea1-6f8363f75baf" class="">Pour tester si tout fonctionne, rentrer dans votre code ruby: </p><pre id="256d6cff-7526-4c83-ab63-d324d77b65d1" class="code"><code>puts &quot;Hello&quot;</code></pre><p id="ee995014-4b0f-40fc-a1e6-35be5ef5c01e" class="">La fonction puts sert à renvoyé la donnée qui la suis.</p><p id="9bcdce72-cc54-417f-91ed-28e1182d7331" class="">Maintenant, dans la console, tapez :</p><pre id="a4cc4127-6c81-4c2d-83a3-b6fd7abab984" class="code"><code>ruby boucles.rb</code></pre><p id="112a9641-71bb-4336-81c8-b37b374c6241" class="">La console devrait vous renvoyer &quot;Hello&quot;</p><p id="d7cedbaa-822c-4a54-94c0-c1b076311242" class="">
+</p><ul id="38bf0269-25b3-4450-a6f4-9f0d165d855c" class="bulleted-list"><li>Boucles sur les tableaux</li></ul><p id="d8f68bb2-85e3-4042-93a5-2413f7f0b01f" class="">Dans un premier temps,  crée un tableau dans notre code boucles.rb (le fonctionnement est le même que dans la console).</p><pre id="e0e56553-ae3c-4922-89fc-2303850bbcd3" class="code"><code>utilisateurs = [
+&quot;Alice&quot;, &quot;Bob&quot;, &quot;Jhone&quot;
+]</code></pre><p id="ef613be5-8931-4d81-837f-99dbb473e1ad" class="">Si je veux que la console m&#x27;affiche un par un les utilisateurs, je pourrais marqué dans mon code:</p><pre id="c7c6a071-9a31-4411-85b7-84531a8eb01b" class="code"><code>puts utilisateurs[0]
+puts utilisateurs[1]
+puts utilisateurs[2]</code></pre><p id="12cfd9ed-f055-444d-841e-b75854469f4d" class="">Cela fonctionnerai mais il faudrait, à chaque fois que le tableau est modifié, changer le puts. C&#x27;est très long. On va alors crée une boucle:</p><pre id="25d73564-7950-4700-85b4-f29ca04afac9" class="code"><code>utilisateurs.each do |utilisateur|
+	puts utilisateurs
+end</code></pre><p id="2f86517c-9100-4790-bb59-1af538650c55" class="">Le &quot;.each&quot; désigne chaque utilisateur. Si on lis le code en francais, on peut comprendre:</p><p id="917b55af-26bd-48b6-8d1a-6e0edbbefd7c" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="0394fb46-d8d7-4c2b-b75a-fb6da8f60c29"><div style="font-size:1.5em"><span class="icon">⚙</span></div><div style="width:100%">le premier utilisateur est dans la variable utilisateur, dire la variable utilisateur.
+l&#x27;utilisateur suivant est dans la variable utilisateur, dire la variable utilisateur.
+Recommencer jusqu&#x27;a la fin</div></figure><p id="387461b7-3b04-4f6d-bcb8-47c041d02ebf" class="">
+</p><ul id="f667e929-5948-481c-b596-048f2ce56796" class="bulleted-list"><li>Les boucles de répétition</li></ul><p id="e392a627-bd57-4ddb-b43b-06f6ae018bb6" class=""> Les boucles peuvent être utilisé hors des tableaux pour donner une instrcution précise. Si je veux faire répéter &quot;Hello&quot; pendant dix fois, je marque:</p><pre id="75bf9ca0-07ff-4cf4-9a4d-c8ee97932234" class="code"><code>10.times do
+puts &quot;Hello&quot;
+end</code></pre><p id="980648e0-c1cb-4cc1-a31f-d5ba00ee50b7" class="">
+</p><h3 id="a196346f-19ae-41af-9b9f-16636c63b75f" class="">Les conditions</h3><p id="115d31b5-f7c9-487b-8b78-15b2c4e4b622" class="">Les conditions permette d&#x27;agir en fonction d&#x27;une valeur /information. En français, on peut traduire un code de condition par &quot;Si ceci alors cela&quot;. On crée d&#x27;abord un fichier ruby appelé conditions.rb</p><p id="24600b29-5bfc-48b8-ae73-d53572278c95" class="">
+</p><ul id="339075b4-8087-4495-aca5-24b304ccaced" class="bulleted-list"><li>Synthaxe de condition</li></ul><p id="288c98e3-62e4-4ce9-87a5-ab04790a0ce7" class="">On commence par attribuer une valeur à une variable:</p><pre id="3206b889-b4b7-40f4-9453-23723b351ab2" class="code"><code>a=15</code></pre><p id="e0a6a27e-a36a-489c-aa98-40caa3ebf19c" class="">On dit au code de nous dire la valeur de a:</p><pre id="3aa6b4ef-bfb2-4a9f-95cb-0752b9d7a88f" class="code"><code>puts &quot;a est égal à: #{a}&quot;</code></pre><p id="f29d9abc-7b8d-4346-9025-29af5db2cc0e" class="">On peut tester le programme pour vérifier que tous fonctionne.</p><p id="4df4829b-4b56-4923-9faf-377a175d2a6d" class="">Maintenant on va poser des condition au programme pour qu&#x27;il nous indique si a est supérieur ou inférieur à 10. Pour cela on va utiliser &quot;if&quot; et &quot;else&quot; ( si et sinon ):</p><pre id="b226bbbf-6bd4-49f8-b50e-c0734219e800" class="code"><code>a = 15
+puts &quot;a est égal à: #{a}&quot;
+if a&gt;10
+puts &quot;Supérieur à 10&quot;
+else
+puts &quot;Inférieur à 10&quot;
+end</code></pre><p id="b92ae0c3-d60e-4fe2-a328-89da111cc1be" class="">
+</p><ul id="7b87be05-0ba1-46a6-b26c-3e6f002087ac" class="bulleted-list"><li>Conditions dans les tableaux</li></ul><p id="da4dac06-7919-4e36-971a-3b615c5550ef" class="">Pour commencer on crée un tableau pour l&#x27;exemple:</p><pre id="97095c28-7fe2-4571-a73e-d98425add659" class="code"><code>emails = [
+&quot;bob@bob.com&quot;, &quot;jane@hello.com&quot;
+]</code></pre><p id="628c55aa-5e18-4e28-aadd-435a31fc8de3" class="">
+</p><p id="04a2b531-c70e-4853-9c20-06eb81047c71" class="">A la suite on peux écrire un condition qui nous indique si on a 1 email dans le tableau:</p><pre id="f42add44-2916-467a-b1e5-f60068541574" class="code"><code>
+if emails.size == 1
+	puts &quot;J&#x27;ai un email&quot;
+else
+	puts &quot;J&#x27;ai plus ou moin d&#x27;un email&quot;
+end</code></pre><p id="0551c859-949f-446c-a718-f721a4e9bb55" class="">
+</p><p id="43b1643c-f736-4832-8c65-39800daff998" class="">La console en executant le code va vous renvoyer &quot;J&#x27;ai plus ou moin d&#x27;un email&quot;. Si l&#x27;on en supprime 1 dans le tableau, la console va nous renvoyer &quot;J&#x27;ai un email&quot;</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="df6bd48f-dc27-481f-a5a9-76f15bc8b16b"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%">Le &quot;==&quot; est très important! Le &quot;=&quot; simple sert à l&#x27;assignation. Le &quot;==&quot; lui sert au test et à la comparaison</div></figure><p id="b56729c5-2e5a-4a8d-85f8-12d0c7852747" class="">
+</p><ul id="6be8793c-4031-438f-88ab-12fd686b6c96" class="bulleted-list"><li>Symboles de conditions utile</li></ul><p id="df22f36c-084e-407e-b3c8-484a7e4e321f" class="">On a deja vu le &quot;==&quot; qui sert à vérifier une égalité mais il en existe d&#x27;autre:</p><p id="375706d4-0e38-4d97-81e3-46e963c54715" class="">
+</p><p id="04fbad88-8be5-4dba-83ec-c5e30139f07a" class=""><em><strong>! =</strong></em><strong> </strong>qui sert à vérifier une différence (souvent traduit en math par ≠)</p><p id="8d962a2d-e0d1-4bd0-95e1-9ff71e0eb7f7" class=""><em><strong>&lt;</strong></em> et <em><strong>&gt;</strong></em> qui servent  à vérifier un supériotité et une infériorité.</p><p id="9a304724-c396-47a3-8a43-b5f62a6f9be7" class=""><em><strong>&amp;&amp;</strong></em> qui sert à ajouter un &quot;et&quot; logique ( par exemple: <strong>if a&gt;1 &amp;&amp; a&lt;10</strong>  cette condition vérifie un nombre compris en 1 <strong>ET </strong>10 )</p><p id="c50ce07c-7165-434a-bdcb-68d7613fe3e4" class=""><em>| |</em> qui sert à ajouter un &quot;ou&quot; logique ( par exemple: <strong>if a&gt;1 | | a&lt;10</strong>  cette condition vérifie un nombre soit supérieur à 1, soir inférieur à 10)</p><p id="bd65d4d7-b2eb-4216-99c6-53c1a586e60d" class="">
+</p><ul id="79be32a1-3122-4746-a2e7-be33ec680398" class="bulleted-list"><li>Booleens</li></ul><p id="cd9b5cb8-d6f0-4a16-82e1-151f55be4fc8" class="">Les booleens sont une manière de comparer rapidement des données. Il renvoie automatiquement true ou false (vrai ou faux en francais) en fonction de leurs contenue. Exemple:</p><pre id="791b840d-175f-4cf8-b515-ae7704b94f1f" class="code"><code>a = 15 
+mon_booleen =(a &gt; 10)
+puts mon_booleen</code></pre><p id="2b28bc8f-ccd5-4662-956b-e0f52116e2e5" class="">
+</p><p id="0f6c2c72-fad6-4cef-ac4f-9d9eb39d7a77" class="">Ici, a est supérieur à 10, le booleen vas donc répondre true.</p><p id="fdb5c148-7750-4413-84d5-fd992c500591" class="">Les booleens est une manière plus simple de vérifier une condition mais moin précise.</p><p id="bf6ab607-4e47-4181-a80d-394ab29d16a2" class="">
+</p><h3 id="cecc92ca-c447-4494-afc7-f917338b942f" class="">La programmation orientée objet</h3><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="28426183-a737-4bfc-963c-f37779d975e7"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">La programmation orientée objet (POO) est un paradigme au sein de la programmation informatique. Il s&#x27;agit d&#x27;une représentation des choses, un modèle cohérent – partagé à travers différents langages qui permettent son usage (Python, Java, C++).</div></figure><p id="54af27d9-f848-4ee5-bf33-5e22cb682906" class="">
+</p><ul id="e015cc28-783b-4756-acc2-f942e4ba24df" class="bulleted-list"><li>Les instances de classes</li></ul><p id="4c4ba040-dedc-4338-a7c0-490cae3323e4" class="">Une classe se rapproche du fonctionnement d&#x27;un plan. Elle décrit en quelque sorte le concept de l&#x27;objet. On peut afficher la classe d&#x27;un objet en tapant l&#x27;objet suivi de &quot;.class &quot;</p><pre id="f47e55ec-af0e-417b-91a8-1b092d3e3194" class="code"><code>75.7 .class</code></pre><p id="814dbc9e-3e63-4e00-af2c-53dc34f0e1b5" class="">L&#x27;irb nous renvoie:</p><pre id="d2632f28-40fb-4245-b72f-539ea8f3b86f" class="code"><code>=&gt; Float</code></pre><p id="ccd9aaa8-1899-4acd-80e6-6df65de169a2" class="">ce qui signifie que l&#x27;objet est un nombre flottant ( à virgule)</p><p id="a5e60e0c-6ac5-4f86-99e4-d90d4647b969" class="">
+</p><p id="0b1ae202-b5cc-4e09-94ce-e094b7e3f69e" class="">Exemple: Crée une classe utilisateur:</p><p id="364ffae6-0074-4801-ae12-93b66819d7dc" class="">Comme d&#x27;habitude créez un fichier ruby (ici class.rb) et ouvrez-le. Ouvrez à coté votre console. Pour crée une classe &quot;Utilisateur&quot; dans ruby c&#x27;est très simple. Il suffit de rentrer:</p><pre id="3d93851c-a4ca-4a27-b04a-62dd3d396b90" class="code"><code>class Utilisateur
+
+end </code></pre><p id="bec188f2-68a0-4eea-9e4b-4a0b50988002" class="">
+</p><p id="28862dd6-7881-4d6b-8568-f3a2105a223c" class="">La partie entre &quot;class&quot; et &quot;end&quot; sert à définir la classe. Ce qui s&#x27;écrit après sert à l&#x27;utiliser. </p><p id="8ab0d921-8401-42fd-ade3-14c8a8cb83de" class="">Nous allons maintenant crée un objet de cette classe et dire au script de l&#x27;afficher:</p><pre id="013d4a79-8c08-4497-809f-deebba7ee0e0" class="code"><code>class Utilisateur
+
+end 
+
+mon_utilisateur = Utilisateur.new
+puts mon_utilisateur</code></pre><p id="1d3077e5-1a6d-43ce-8046-5e313b17a004" class="">
+</p><p id="970a7d37-7061-4bce-bbc3-e188a01c74e3" class="">Ruby nous renvoie le nom de la classe suivie de caractères étranges car cette dernière ne contient rien. Pour ajouter une propriété, il faut rajouter l&#x27;attribu &quot;attr_accessor :&quot; suivi du nom de l&#x27;option:</p><pre id="28c90b0d-8d9f-4a32-816d-c78182394380" class="code"><code>class Utilisateur
+attr_accessor :prenom
+end 
+
+mon_utilisateur = Utilisateur.new
+puts mon_utilisateur</code></pre><p id="2d3d06f6-3a8f-4e02-83e2-79ed9ab35c7e" class="">
+</p><p id="e4b4c488-4747-446c-86e6-bba3d087bb51" class="">Notre classe indique maintenant que chaque objet répondant à elle contient un prénom. Pour ajouter un prénom et un nom à notre utilisateur et l&#x27;afficher à l&#x27;execution du script, il faut taper:</p><pre id="7738f7a6-6684-40ef-950e-edacaa8a3fd6" class="code"><code>class Utilisateur
+attr_accessor :prenom
+attr_accessor :nom
+end 
+
+mon_utilisateur = Utilisateur.new
+mon_utilisateur.prenom = &quot;Bob&quot;
+mon_utilisateur.nom = &quot;Rousseau&quot;
+puts mon_utilisateur.prenom
+puts mon_utilisateur.nom</code></pre><p id="752b8229-b21d-4f7c-a5b3-1e5526e348f3" class="">La console affichera donc &quot;Bob Rousseau&quot; </p><p id="05758aaa-06c9-435c-9276-2f8442d0c497" class="">
+</p><ul id="813bccd0-d22a-46dc-8f3e-f1153c656f17" class="bulleted-list"><li>Les méthodes sans paramètres</li></ul><p id="7b9948eb-c4a3-457e-a2a1-c26ef7159c2e" class="">La façon la plus intéressante pour utiliser les méthodes sont dans les classe. Reprenons la classe de l&#x27;exemple d&#x27;avant:</p><pre id="41df9932-29f5-456c-983f-738b09ef5e16" class="code"><code>class Utilisateur
+	attr_accessor :prenom , :nom
+end
+
+bob= Utilisateur.new
+bob.prenom = &quot;Bob&quot;
+bob.nom = &quot;Lenon&quot;</code></pre><p id="edd1a536-d2b1-4490-9b19-40c612fe347e" class="">
+</p><p id="d062bf12-ae1c-4dab-be73-a0d3ac5e0716" class="">Ici, pour afficher le nom et le prenom et il faut rentrer:</p><pre id="a2c39909-a1d6-4dee-9c2e-b63c1bd751d3" class="code"><code>puts bob.nom
+puts bob.prenom</code></pre><p id="45c6042e-dee6-4545-8dd8-6108f03cfbd7" class="">
+</p><p id="ddd80322-8150-4bc2-af14-2b86dcb3cc66" class="">Mais cela prends deux ligne. Dans notre cas ce n&#x27;es pas problématique mais si l&#x27;on rentre une dizaine de paramètre dans la classe, les afficher peut rapidement devenir long. Un méthode peut regrouper plusieurs paramètre afin que, dans notre, exemple, s&#x27;affiche le nom et le prenom de notre exmple en tapant: </p><pre id="85285a87-6b61-487a-94e2-b88d639b4999" class="code"><code>puts bob.nom_complet</code></pre><p id="77ad7834-bbc2-4af7-a5cb-677f5f7fa84b" class="">
+</p><p id="08fcf76b-e278-4f3c-a77b-f3c613cc5562" class="">La création et la définition d&#x27;une méthode se fais dans l&#x27;entête de notre classe ( entre &quot;class&quot; et &quot;end&quot;):</p><pre id="2c579c42-5359-473d-8cee-ce7c41e82dc5" class="code"><code>class Utilisateur
+
+	attr_accessor :prenom , :nom
+	def nom_complet
+end
+
+end
+
+bob= Utilisateur.new
+bob.prenom = &quot;Bob&quot;
+bob.nom = &quot;Lenon&quot;</code></pre><p id="cb7fade6-fb88-4bb1-848a-7029e920c8fd" class="">
+</p><p id="954dd35f-22b2-42ca-9c51-78151346c5e6" class="">
+</p><p id="442fbc8c-dc18-4ab8-b92b-bc4e47e7d905" class="">Il suffit maintenant de la définir et de l&#x27;appeler à la fin du programme:</p><pre id="f0cf9f21-1cea-42f3-8314-5f80c056fb7d" class="code"><code>class Utilisateur
+	attr_accessor :prenom, :nom
+
+	def nom_complet
+		nom + &quot; &quot; + prenom
+	end
+end
+
+bob = Utilisateur.new
+bob.nom = &quot;Lenon&quot;
+bob.prenom = &quot;Bob&quot;
+
+puts bob.nom_complet</code></pre><p id="493c280a-6b8a-47c3-99d2-a67367fea1de" class="">
+</p><ul id="daac81a9-d51e-425d-874a-f50cd7150fd2" class="bulleted-list"><li>Les méthodes avec paramètre</li></ul><p id="1d03b25b-3302-401c-9a05-c74a701c760d" class="">L&#x27;exemple suivant nous montrait comment utiliser une méthode dans une classe. Comme les classe, les méthode peuvent imbriquer des paramètres. Pour l&#x27;exemple nous définirons un pays et nous demanderons si un utilisateur habite dans ce pays ou un autre.</p><p id="a1cbe6d4-b1fe-42e7-86eb-504e5ec02e43" class="">Pour cela nous ajoutons le paramètre pays à notre code précédant :</p><pre id="a950792f-f763-40cb-9cb4-86faa15ad4d7" class="code"><code>class Utilisateur
+	attr_accessor :prenom, :nom, :pays
+	def nom_complet
+		nom + &quot; &quot; + prenom
+	end
+
+end
+
+bob = Utilisateur.new
+bob.nom = &quot;Lenon&quot;
+bob.prenom = &quot;Bob&quot;
+bob.pays = &quot;France&quot;
+
+</code></pre><p id="9d788eb6-e47d-41da-8978-6e6d6087acf0" class="">
+</p><p id="a3cec559-2f8f-471b-965b-e48d7148c6cf" class="">Nous voulons savoir si Bob habite en France. Pour cela, on crée une méthode :</p><pre id="62dbc497-dd27-4f06-9bf2-06303d2e2148" class="code"><code>def habite_en(valeur)
+valeur == pays
+end</code></pre><p id="10c7540f-a5aa-42f0-b27d-11d1e0816d25" class="">
+</p><p id="20194ef4-10f1-488b-b546-829b890c432c" class="">Cette méthode appelle la variable &quot;valeur&quot;. La suite du code indique que si la valeur correspond au pays rentré dans le paramètre &quot;pays&quot; de l&#x27;utilisateur, alors la console retournera vrai ( ou true en anglais). Voici le code final:</p><pre id="67e7b7ac-491f-404d-bc09-2d62a416046d" class="code"><code>class Utilisateur
+attr_accessor :prenom, :nom, :pays
+	
+	def nom_complet
+		nom + &quot; &quot; + prenom
+	end
+	
+	def habite_en(valeur)
+		valeur == pays
+	end
+end
+
+bob = Utilisateur.new
+bob.prenom = &quot;Bob&quot;
+bob.nom = &quot;Lenon&quot;
+bob.pays = &quot;France&quot;
+
+puts &quot;Est ce que Bob habite en Suisse ?&quot;
+puts bob.habite_en(&quot;France&quot;)</code></pre><p id="4b597ca4-c203-47ec-828e-4a4acddc74af" class=""> </p><p id="88a2c891-d7fe-45bf-9c24-0854ab8104ab" class="">Si l&#x27;on remplace &quot;France&quot; au deux dernières lignes par &quot;Suisse&quot;, alors la comparaison de la méthode ne sera plus vérifier et la console nous retourna &quot;true&quot;. La comparaison se fais sous les booleen False et True. On peut lui donner de la forme en utilisant &quot;if&quot; et &quot;else&quot;:</p><pre id="ffdaeff0-409e-4322-b25e-601f332226a1" class="code"><code>class Utilisateur
+attr_accessor :prenom, :nom, :pays
+	
+	def habite_en(valeur)
+		valeur == pays
+	end
+ 
+end
+
+bob = Utilisateur.new
+bob.prenom= &quot;Bob&quot;
+bob.nom = &quot;Lenon&quot;
+bob.pays = &quot;France&quot;
+
+if bob.habite_en(&quot;Suisse&quot;)
+	puts &quot;J&#x27;habite en Suisse&quot;
+else
+	puts &quot;Je n&#x27;habite pas en Suisse&quot;
+end</code></pre><p id="c4add593-c765-4e00-8a8e-24bfe7f5b08e" class="">En exécutant ce code, le programme vérifie si Bob est Suisse et renverra ça réponse en fonction de la valeur attribuer au paramètre .pays de bob (ici France).</p><p id="3666ce80-5cbc-4641-9e4f-7598bb534dfd" class="">
+</p><ul id="80fa02f7-ef78-4dd6-a92b-4f2e38f8409b" class="bulleted-list"><li>L&#x27;héritage de classe</li></ul><p id="b3f48390-aa5d-404a-a7b2-52a1633e867d" class="">Pour bien comprendre ce système d&#x27;héritage, nous allons prendre l&#x27;exemple d&#x27;une classe nommée &quot;animal&quot; que nous allons crée dans ce code:</p><pre id="8e66f78c-b89d-4158-aa04-fae98050464a" class="code"><code>class Animal
+attr_accessor :nom
+def initialize(nom)
+@nom = nom
+end
+def parler
+puts &quot;Je suis un animal qui s&#x27;appelle #{nom}&quot;
+end
+end
+mon_chien = Animal.new(&quot;Bob le chien&quot;)
+mon_chat = Animal.new(&quot;Adeline le chat&quot;)
+mon_chat.parler
+mon_chien.parler</code></pre><p id="a6c5d901-2c31-468f-9beb-616cb2530925" class="">
+</p><p id="53434705-6958-440d-b7bf-d80e27d0942a" class="">Si l&#x27;on execute ce programme, la console dira &quot;Je suis un animal qui s&#x27;appelle Adeline le chat&quot; et &quot;Je suis un animal qui s&#x27;appelle Bob le chien&quot;. Mais imaginons que l&#x27;on veuille une phrase différente en fonction de l&#x27;animal. Cela peut se faire en fesant une classe chat et la duplicquer pour la renommer chien mais cela peut devenir rapidement redondant. On va plutot utiliser l&#x27;héritage des classe.</p><p id="49177087-f20a-4468-a31a-50484c19098b" class="">On commence par crée une classe Animal ou l&#x27;on va mettre tous les paramètre commun entre le chien et le chat:</p><pre id="93d463ab-f75f-489f-896d-b3d1fcd115d4" class="code"><code>class Animal
+  attr_accessor :nom
+  
+  def initialize(nom)
+    @nom = nom
+  end
+end</code></pre><p id="0b8bcb62-827f-42c2-9d98-6fe951914923" class="">
+</p><p id="9ab6ad4d-bcd1-4621-973b-4541cdbddf50" class="">Puis, on crée la classe Chat et la classe Chien contenant leurs réponse et héritant de la classe Animal grace au symbole &quot;&lt;&quot; suivi de la classe auquel ils héritent:</p><pre id="e0ff6cc7-1a3b-48f3-a768-3934cfb97322" class="code"><code>class Chat &lt; Animal
+  
+  def parler
+    puts &quot;#{nom}: Miaou&quot;
+  end
+end
+
+class Chien &lt; Animal
+  
+  def parler
+    puts &quot;#{nom}: Ouaf!&quot;
+  end
+end
+
+mon_chien = Chien.new(&quot;Bob le chien&quot;)
+mon_chat = Chat.new(&quot;Adeline le chat&quot;)
+
+mon_chat.parler
+mon_chien.parler</code></pre><p id="dff2ca43-d4b1-4a11-87cd-be944556441d" class=""> </p><p id="f6d901fa-ecd5-4692-a2c3-bf42729f00a7" class="">Le code devrait nous renvoyer:</p><pre id="f3e75a73-db6d-4b83-94c7-1c8741ac1bd5" class="code"><code>Adeline le chat: Miaou
+Bob le chien: Ouaf!</code></pre></div></article></body></html>

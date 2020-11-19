@@ -1,0 +1,644 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Attaque man in the middle (in progress) </title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="8c46515d-e0eb-46f3-863b-372419b13ea0" class="page sans"><header><img class="page-cover-image" src="https://images.unsplash.com/photo-1488052001737-d4decfe00039?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb&amp;ixid=eyJhcHBfaWQiOjYzOTIxfQ" style="object-position:center 0%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🧙🏽‍♂️</span></div><h1 class="page-title">Attaque man in the middle (in progress) </h1></header><div class="page-body"><p id="143d00ae-964f-4ebd-8ca0-87db44637488" class=""><em>Source: instant-hack.to</em></p><p id="854c032b-abc7-470f-9f6c-9422f27be447" class="">Prenons l’exemple suivant :</p><p id="cd388cc0-82fe-4b03-aa8c-f37af271f57d" class="">Nous allons imaginer un réseau local simple, deux ordinateurs connectés à un modem, nous les appellerons</p><p id="b7fc7a79-0b27-41f4-ba3e-315c40bd1652" class=""><strong>PC1</strong></p><p id="db8ec2b1-bc39-48d9-b560-9a671d07b6b0" class="">(la victime), et</p><p id="0073e576-5347-4b26-8ba7-208aa6ae37ca" class=""><strong>PC2</strong></p><p id="63b75b6c-c47c-46af-b023-20633324be08" class="">(l’attaquant)</p><figure id="cc910589-b851-4e2c-b8f7-cbb266e52329" class="image"><a href="https://images.static-cdn.download/40df5f7d7f136e37e07dbb9ac653fe59bf1bbbc7/687474703a2f2f6b656e6d61737465722e652e6b2e662e756e626c6f672e66722f66696c65732f323031322f30312f496d616765312d333030783330302e706e67"><img style="width:240px" src="https://images.static-cdn.download/40df5f7d7f136e37e07dbb9ac653fe59bf1bbbc7/687474703a2f2f6b656e6d61737465722e652e6b2e662e756e626c6f672e66722f66696c65732f323031322f30312f496d616765312d333030783330302e706e67"/></a></figure><p id="bf65ee84-50b4-498f-8f84-1d1b469c2af2" class="">En temps normal, d’après Wikipedia :</p><p id="c7a8bf86-a7a8-4b24-8213-6f75b21f70d9" class="">Un ordinateur connecté à un réseau informatique souhaite émettre une
+trame ethernet à destination d’un autre ordinateur dont il connaît
+l’adresse IP et placé dans le même sous réseau. Dans ce cas, cet
+ordinateur va placer son émission en attente et effectuer une requête
+ARP en broadcast. Cette requête est de type « quelle est l’adresse MAC
+correspondant à l’adresse IP</p><p id="7ee83d2d-a09f-4273-a2eb-fc05162f9005" class="">adresseIP</p><p id="2e688dff-d876-4208-869d-d4fc0786a625" class="">? Répondez à</p><p id="1a099891-311f-4488-8982-673190f469dd" class="">adresseMAC</p><p id="191f5e98-36a5-4bef-82a5-3576b00527fa" class="">».</p><p id="490b8b97-c1db-4615-bdc5-5e1da76e2930" class="">Puisqu’il s’agit d’un broadcast, tous les ordinateurs connectés au
+support physique vont recevoir la requête. En observant son contenu, ils pourront déterminer quelle est l’adresse IP sur laquelle porte la
+recherche. La machine qui possède cette adresse IP, sera la seule (du
+moins si elle est la seule, ce qui est censé être le cas dans tout
+réseau) à répondre en envoyant à la machine émettrice une réponse ARP du type « je suis</p><p id="1a1905d4-8688-45ed-9f98-a7e098ff6210" class="">adresseIP</p><p id="9350a96f-6554-4118-a168-fcb4c4994bb3" class="">, mon adresse MAC est</p><p id="2b2a2ddc-3c6d-4ff0-a695-f116c03caf76" class="">adresseMAC</p><p id="14349f7c-569a-443a-832e-a341fea00aa6" class="">». Pour émettre cette réponse au bon ordinateur, il crée une entrée dans soncache ARP à partir des données contenues dans la requête ARP qu’il
+vient de recevoir.</p><p id="e7791ccf-c087-44ee-9c93-caccb58de07d" class="">La machine à l’origine de la requête ARP reçoit la réponse, met à jour
+son cache ARP et peut donc envoyer le message qu’elle avait mis en
+attente jusqu’à l’ordinateur concerné.</p><p id="90eb3f16-e7d4-4e4f-8b11-c6191b125c61" class="">Il suffit donc d’un broadcast et d’un unicast pour créer une entrée dans le cache ARP de deux ordinateurs.</p><p id="4f96c15f-c6e5-434b-a5d1-f2ae55eca2bd" class="">Les ordinateurs s’identifient donc sur le réseau grâce aux requetes
+ARP, qui permettent de faire le lien entre addresses IP et MAC.</p><p id="7fed266b-7f3d-409b-a019-4c66a5991fb3" class="">Il devient alors possible, pour un attaquant, d’envoyer des fausses
+requêtes ARP, et donc de se faire passer pour une autre machine.</p><p id="594fd666-d542-41bd-aa8a-007d67390a99" class="">Le principe de l’attaque <strong>Man in the middle</strong> est le suivant</p><ul id="71b08301-4afa-4e0d-bffa-eb0b8fb6e938" class="bulleted-list"><li>L’attaquant se fait passer pour la victime auprès du routeur.</li></ul><ul id="1a7aa3a0-0adc-45e8-b8ea-cfdea5fb12e8" class="bulleted-list"><li>L’attaquant se fait passer pour le routeur auprès de la victime.</li></ul><figure id="835bc7c0-1f5c-4276-b246-5e27535e5bb9" class="image"><a href="https://images.static-cdn.download/25feab4e0a3b95ffa94dfcc1fb8c4735fe99f73b/687474703a2f2f6b656e6d61737465722e652e6b2e662e756e626c6f672e66722f66696c65732f323031322f30312f496d616765322d333030783330302e706e67"><img style="width:288px" src="https://images.static-cdn.download/25feab4e0a3b95ffa94dfcc1fb8c4735fe99f73b/687474703a2f2f6b656e6d61737465722e652e6b2e662e756e626c6f672e66722f66696c65732f323031322f30312f496d616765322d333030783330302e706e67"/></a></figure><p id="fbc6c163-a069-4e6a-99bc-59034cf54a81" class="">Que se passe-t-il alors?</p><p id="f99e2d25-2088-4509-976a-56d1264fdc87" class="">Toutes les communications (entrantes et sortantes) de la victime passent par l’attaquant, l’attaquant redirige les paquets comme il faut, ainsi
+tout se passe de manière</p><p id="465f1716-88f3-456e-818f-dd7b4312827d" class=""><strong>transparente</strong></p><p id="dfad0bc7-e63a-45d1-b210-5d4f269c9ddf" class="">pour la victime.</p><p id="82d3e543-4382-43b2-9e26-e0eb4000f44b" class="">Il est donc possible de lire tous les paquets, et des informations</p><p id="b815de54-27cd-463d-a830-01ee061e1d53" class=""><strong>sensibles</strong></p><p id="cd4abdbc-ea2d-473c-8d05-6ea0760e84a9" class="">, comme les mots de passes, les sites web consultés.</p><p id="9c0e620a-c7e5-4fc9-95e8-a45e9e8ed1d4" class="">D’autres pratiques sont possibles, comme le</p><p id="939c3c6a-190d-4194-9f46-9ecc81f982f2" class=""><strong>dns poisoning :</strong></p><p id="1ff77a7a-4a55-4296-91f5-cb7b7d712ff9" class="">L’attaquant intercepte les paquets</p><p id="d53f6e9a-c43c-4cb3-b4ba-945e4985c41c" class=""><a href="https://instant-hack.to/redirect?to=aHR0cDovL2ZyLndpa2lwZWRpYS5vcmcvd2lraS9Eb21haW5fTmFtZV9TeXN0ZW0=">dns</a></p><p id="a0ff7efe-fc7e-4427-8eb6-cc9a21436afa" class="">transitant entre la victime et le routeur et les modifie.</p><p id="8a3b688c-49dc-4948-8b96-d6e2754bec83" class="">Les paquets dns permettent de faire le lien entre un nom de domaine et une adresse ip.</p><p id="a348d648-cb20-4134-81ae-be3640f2f4ce" class="">Il est alors possible pour l’attaquant de les modifier et de faire
+pointer des sites connus (google, banques) vers d’autres sites, et ainsi de faire du fishing.</p><p id="7dd60dde-0987-4fe9-918a-81a7af67ed04" class=""><strong>Tuto</strong></p><p id="1151e211-d2dc-44af-8312-a683cc106dab" class="">Passons maintenant à la pratique, je vous rappelle que ces pratiques sont</p><p id="17dd8ea9-5459-4c0f-ba74-82fa08a9560c" class=""><strong>illégales</strong></p><p id="98ab665c-ec9e-474d-8790-b40f1e2e7b15" class="">si appliquées réellement sans l’accord de votre « victime » .</p><p id="d4e45afb-ce0e-4752-b8cc-fa5a5a449b65" class="">Pour ce mini-tutorial, j’utiliserais</p><p id="50a3f961-9f4b-4509-b4dd-96616d9071cc" class=""><strong>sous ubuntu</strong></p><p id="ceed79f3-284c-436d-bfc5-2a470f3899bf" class="">les outils suivants :</p><p id="4a74548a-1910-43f9-888d-1bdfc26d1167" class="">Sous ubuntu, il faut activer l’ip forwarding, qui permettra de renvoyer les paquets aux bons ordinateurs</p><p id="c7240737-71b5-4e0b-b5b7-534769eef60c" class="">En root :</p><p id="a89fee6c-7c9e-4699-bbf4-779b9025a327" class="">echo 1 &gt; /proc/sys/net/ipv4/ip_forward</p><ul id="17abc795-6771-46f1-b208-b4db241379f1" class="bulleted-list"><li>wireshark</li></ul><ul id="0482e824-d3bd-4c4e-81fa-02644ea290c7" class="bulleted-list"><li>dsniff</li></ul><p id="d9aa803d-c986-42b3-b709-624dff282e1e" class="">Première étape, il faut réaliser</p><p id="d43a31b8-3c19-4167-9e6a-5da3bb10b312" class=""><strong>l’arp spoofing,</strong></p><p id="b8fcce13-aa63-4bda-82c0-b34e631d8b67" class="">c’est à dire envoyer les fausses requêtes arp.</p><p id="ce1bb0b8-3e0f-4a83-8293-ab55b447848c" class="">dsniff fournit le programme arpspoof que nous allons l’utiliser, je ne
+détaille pas la syntaxe, lisez le manuel pour plus d’infos.</p><p id="ee381fef-7f9c-47a3-bf8f-3e582e56a595" class="">Pour « empoisoner » la victime :</p><p id="c77b04a5-3c0a-4c78-8958-15ba01a83af2" class="">sudo arpspoof -i interface -t IP.DE.LA.BOX IP.DE.LA.VICTIME</p><p id="e7997506-b86f-4760-a24e-363789d8e1ea" class="">On repete l’operation dans un autre shell par exemple pour faire l’inverse :</p><p id="4e9365ac-2b4b-41e7-8d51-ceaa50d507b3" class="">sudo arpspoof -i interface -t IP.DE.LA.VICTIME IP.DE.LA.BOX</p><p id="cd1cd069-0f36-4625-b370-eb19055cc0b4" class="">Remplacez bien sur les ip et votre interface par la bonne (eth0 / wlan0 / etc).</p><p id="1231245f-10da-4a77-8741-6df95cb5f690" class="">Ca y’est, les paquets transitent désormais par notre machine.</p><p id="a4f03e09-3db5-4282-abab-ef3e0e0cfa68" class="">Il est alors possible de les lire via le très célèbre analyseur de paquets</p><p id="8512b6b1-374a-4f67-9ef0-feab2c021456" class=""><strong>Wireshark</strong></p><p id="3e36b3db-8e50-4687-bba0-a0e7908747d2" class="">Nous pouvons alors analyser tous les paquets, et trouver les informations que nous cherchons.</p><p id="03f00c1f-f97d-4624-beb9-a5a5f9c5fc64" class="">Pour faciliter la recherche de mots de passe, faites un man dsniff</p><p id="ff06bad1-f484-4586-856e-446b335743f3" class="">De même pour le dns poisoning, dnsspoof, fourni par dsniff est la pour vous.</p></div></article></body></html>

@@ -1,0 +1,645 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Créez un Hidden Service avec Apache et Tor</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="699073b8-d7e1-48bb-83b3-b535bbcc3620" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">👁️‍🗨️</span></div><h1 class="page-title">Créez un Hidden Service avec Apache et Tor</h1></header><div class="page-body"><p id="2618cc98-12fb-4b57-9b6d-17d3201429b5" class="">
+</p><p id="2dcc63bf-d737-4af5-a44f-1c884269117b" class="">Chaque jours, des milliards d’utilisateurs d’internet surfent sur la toile pour diverses recherches. Mais depuis bien longtemps se pose la question de l’anonymat et de la liberté d’expression: où va mon adresse ip, qui collecte mon mot de passe, peut-ont me retracer… C’est pour cette raison que le projet Tor c’est lancé. Un réseau parallèle crypté et donc anonyme</p><p id="78dc0aa3-2fe5-4a7c-84e2-488386df46e8" class="">Aujourd’hui nous allons voir comment mettre en place un serveur dans le réseau Tor grâce au célèbre Apache déjà présenté sur raspberry-pi.fr.</p><p id="a79a9a48-ca33-4adf-ba59-f947d2801dd0" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="6fe3c63c-c9b0-4749-9ac1-2cdca1191c9a"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%">La mise en place de ce serveur permet une liberté totale de la publication de contenu. Je ne suis en aucun cas responsable d’une mauvaise utilisation de ce dernier</div></figure><h3 id="e043abbf-4b5b-4506-b212-53f9c23e0016" class="">Matériel nécessaire</h3><p id="62cc1b25-a24e-4685-a471-3a25967b1a51" class="">Pour ce tutoriel, nous devons disposer du stricte minimum:</p><p id="795bd208-68e6-4998-b699-3d1e0e6dc8cb" class="">-une raspberry pi (peu importe quelle version même si je vous conseille au minimum une pi 3) sous -raspian</p><p id="c3487f40-f11b-4930-bbd0-09d2ef41d958" class="">-son alimentation</p><p id="c9238757-b57e-4074-90d9-3406e742f0c6" class="">-une connexion internet</p><p id="72a30a7a-a355-4135-b2d0-09d043595da9" class="">
+</p><h3 id="46bdf205-49f1-48a9-b301-959086bf390f" class="">Création du Hidden Service</h3><ul id="e3e9f93f-a2f8-467a-ac01-8dc5b00d27b4" class="bulleted-list"><li><strong>Mettre à jour son raspi</strong></li></ul><p id="063e909c-a3bb-46e2-929c-e96a7ec7d724" class="">Comme le veut la tradition, exécuter ces commandes afin de mettre à jour votre pi:</p><pre id="8aacfb03-1d3b-4311-874c-eaa2b7c1180e" class="code"><code>sudo apt-get update</code></pre><pre id="aa09c119-f82b-4ce3-bbf2-620ef93c90bc" class="code"><code>sudo apt-get upgrade</code></pre><p id="23c961a8-3157-422d-8e11-42a70e5f9a11" class="">
+</p><ul id="f0bd0617-5710-46af-a4da-abf6aaf36b45" class="bulleted-list"><li><strong>Installer Apache</strong></li></ul><p id="871db447-7bc4-444b-9280-6036ddd1d7ee" class="">Maintenant que le pi est à jour commençons les choses sérieuses. Installons apache:</p><pre id="cd18178f-bd68-487a-bf82-a6d4c9bb451d" class="code"><code>sudo apt-get install apache2</code></pre><p id="361a55e7-c6c5-4f08-99e9-b86fd30fd512" class="">
+</p><p id="3a43c485-5c94-400e-8184-909967217a43" class="">On s&#x27;attribue les droits au serveur:</p><pre id="4c39ad38-0e49-437a-ac7a-b058a8e1c39f" class="code"><code>sudo chown -R pi:www-data /var/www/html/</code></pre><pre id="1a561537-d994-4a4a-8c22-a35bdb6659dc" class="code"><code>sudo chmod -R 770 /var/www/html/</code></pre><p id="7c5a9818-786c-47db-b3da-fc99cfa61790" class="">
+</p><p id="aec3ec04-0308-4e58-bbd3-e89dcb08a704" class="">Un serveur apache est désormais disponible sur votre pi.V ous pouvez vérifier que le serveur fonctionne en tapant l’ip de la raspi dans un navigateur d’une machine connectée au même réseau. Vous devriez voir ça :</p><figure id="b7b16ab0-7a74-472e-a587-68975bba9b4e" class="image"><a href="https://lh3.googleusercontent.com/eGJbodi0MSGT7ocpgg7bb3P9B2tUpWa45ciAxZA2nbxp9xEYNnvsuvc_Nd7wOlkbFUMdj05lh4nHLfGWYKJzje_1p6wD6ZUAwiCf14G4d-H-PlKMfxxmQYaeBF88XcV0qtIslass"><img src="https://lh3.googleusercontent.com/eGJbodi0MSGT7ocpgg7bb3P9B2tUpWa45ciAxZA2nbxp9xEYNnvsuvc_Nd7wOlkbFUMdj05lh4nHLfGWYKJzje_1p6wD6ZUAwiCf14G4d-H-PlKMfxxmQYaeBF88XcV0qtIslass"/></a></figure><p id="3ce5cd06-4fd5-419b-b93d-6380769a99f1" class="">Vous pouvez maintenant le modifier en important vos fichier html dans le dossier suivant :</p><p id="5c7de327-c3cc-47b8-a210-d79c05c40161" class="">/var/www/html</p><p id="bd0266b3-6e7a-451c-b142-4aeb446cc744" class="">
+</p><ul id="8c5ddb77-cb87-494a-a843-446839658fa4" class="bulleted-list"><li><strong>Mettre notre serveur en ligne sur tor</strong></li></ul><p id="0fe8f304-346d-4a1c-9a18-32452e8ddbb0" class="">Il vous faut dans un premier temps installer tor:</p><pre id="f863fa99-2fc7-4dca-ad74-4cd886d6e3a2" class="code"><code>sudo apt-get install tor</code></pre><p id="ed5c262c-f095-418a-ba20-3c0617450e09" class="">
+</p><p id="4a4c18f1-cf6a-49c0-9aba-e32fb59446c6" class="">Puis éditer le fichier /etc/tor/torrc avec</p><pre id="0cdb8255-5a65-4c61-af70-8041ed1f89bb" class="code"><code>sudo nano /etc/tor/torrc</code></pre><p id="f329169c-3c7e-4622-8324-091f3c1ba1ba" class="">
+</p><p id="df2e53aa-ac21-4d9d-af18-a106c8bb942b" class="">et dé commenter les lignes suivantes</p><pre id="339e5bbc-59e4-464d-9bd2-bc6b53e37586" class="code"><code>HiddenServiceDir /var/lib/tor/hidden_service/
+HiddenServicePort 80 127.0.0.1:80
+HiddenServicePort 22 127.0.0.1:22</code></pre><p id="25b2ed1c-d89a-447b-ae04-312d2bbb21f2" class="">
+</p><p id="dd65e8e5-3b15-4a06-a452-ba10fb89dc45" class="">Maintenant Tor installé, il faut obtenir votre adresse onion. Pour cela arrêter le service Tor avec:</p><pre id="78904ee6-6c16-4077-b451-fbf21b209995" class="code"><code>sudo service tor stop</code></pre><p id="0fb20c07-4bde-41ce-878d-09da31cf3442" class="">
+</p><p id="159b6eea-7904-49ae-aa30-88d395297eb5" class="">Relancer Tor:</p><pre id="d1faabc6-ae92-48d8-b373-bfaf4a6be1e1" class="code"><code>sudo tor</code></pre><p id="d02d2dbc-7d8b-454a-a319-6c9f13e631b8" class="">
+</p><p id="99bfd762-2457-45ee-b6da-eb1943d3d0ec" class="">Et exécuter cette commande:</p><pre id="9a6389a5-e7d2-46d5-8d30-d1e0cd26bda9" class="code"><code>sudo cat /var/lib/tor/hidden_service/hostname</code></pre><p id="dd7c6e52-66b7-44c8-8e79-293174b1d980" class="">
+</p><p id="1a137d92-3611-4c58-9e1c-4afa5080fa63" class="">Cela devrait vous donner une longue clé se terminant par &quot;.onion&quot;. Copiez là car se sera le seul moyen d&#x27;accéder à votre site.</p><p id="628ea5f2-fb10-4217-a97a-41feba0fb04e" class="">
+</p><ul id="bc9420ad-4e2d-4208-88ba-2c3025ce5589" class="bulleted-list"><li><strong>Lancer votre serveur au démarrage du Pi</strong></li></ul><p id="3572905f-6c95-42d9-88ac-e49246d234be" class="">Il faut simplement éditer le fichier /etc/rc.local</p><pre id="892bcf0e-68be-424c-ad82-cb92470ceb4c" class="code"><code>sudo nano /etc/rc.local</code></pre><p id="648f1f5c-1903-4b12-83d0-c69d3b59b713" class="">
+</p><p id="da5ff208-4418-4d76-87cc-86762f87ad64" class="">Et rajouter avant exit 0 :</p><pre id="33395e07-869c-4605-b865-db56f660b1dd" class="code"><code>start tor</code></pre><p id="9c0f34e8-3dd9-4e99-a67e-595f2d31f3c8" class="">
+</p><p id="99ac689c-80a3-4d2f-8e81-65f6e45bf590" class="">Votre hidden service et maintenant en ligne sur le réseau onion ! Je rappel encore que ce système est légal à la limite des loi d’internet que vous pouvez consulter <a href="https://www.globenet.org/presque-toutes-les-lois-concernant.html">là</a>!</p></div></article></body></html>

